@@ -1,0 +1,20 @@
+.historyPanelWrapper {
+  height: 100%;
+  width: 100%;
+  padding-top: 20px;
+  border-left: var(--borderColorMain) solid 1px;
+  border-right: var(--borderColorMain) solid 1px;
+  border-bottom: var(--borderColorMain) solid 1px;
+
+
+}
+.selectObjectPanel {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  gap: 5px;
+  max-width: 300px;
+  border-radius: 5px 5px 0 0;
+  border-bottom: rgba(108, 106, 106, 0.5) solid 1px;
+  background-image: linear-gradient(to bottom, rgba(108, 106, 106, 0.3), rgba(108, 106, 106, 0.1));
+}

@@ -15,14 +15,14 @@
       </div>
       <div>
         <form class="d-flex flex-column gap-2 p-2">
-          <label for="itemName">Event {{category}}</label>
+          <label class="fitObject eventLabel" for="itemName">Event {{category}}</label>
           <input type="text"
-                 class="form-control"
+                 class="form-control eventInput"
                  id="itemName"
                  name="itemName"
                  placeholder="Event Name"
                  [(ngModel)]="eventName" >
-          <label for="itemValue">Value: {{eventValue}}</label>
+          <label for="itemValue" class="fitObject eventLabel">Value: {{eventValue}}</label>
           <input type="range"
                  id="itemValue"
                  name="itemValue"
