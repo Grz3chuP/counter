@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.min.css";
+:root {
+  --buttonColorMain: rgb(82, 101, 105);
+  --buttonColorSecondary: #f5f5f5;
+  --buttonColorSecondaryHover: #e6e6e6;
+  --borderColorMain: #6c6a6a;
+
+}

@@ -1,0 +1,37 @@
+header {
+  border-bottom: var(--borderColorMain) solid 1px;
+  height: 50px;
+  display: flex;
+  align-items: end;
+}
+
+.headerButtonsWrapper {
+  display: flex;
+  justify-content: start;
+  gap: 25px;
+  align-items: end;
+  transition:  0.3s ease-in-out;
+}
+
+.headerButtons a{
+  color: var(--buttonColorMain);
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  z-index: 1;
+  box-sizing: border-box;
+  transition: 0.3s ease-in-out;
+}
+
+.activeBtn {
+  background-image: linear-gradient(to bottom, #d5d5d5, #ffffff);
+  color: #3a3939;
+  border-top: darkolivegreen solid 1px;
+  border-left: darkolivegreen solid 1px;
+  border-right: darkolivegreen solid 1px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom: none;
+}

@@ -1,0 +1,40 @@
+<div class="counterWrapper">
+  <div class="addItemPanelWrapper">
+    <div class="pickItemPanel">
+      <div>Category
+        <select class="form-select-sm" [(ngModel)]="category" [value]="testArray[0]">
+          <option *ngFor="let item of testArray" >{{item}}</option>
+        </select>
+
+      </div>
+      <div>Add New</div>
+    </div>
+    <div class="addItemPanel">
+      <div>
+
+      </div>
+      <div>
+        <form class="d-flex flex-column gap-2 p-2">
+          <label for="itemName">Event {{category}}</label>
+          <input type="text"
+                 class="form-control"
+                 id="itemName"
+                 name="itemName"
+                 placeholder="Event Name"
+                 [(ngModel)]="eventName" >
+          <label for="itemValue">Value: {{eventValue}}</label>
+          <input type="range"
+                 id="itemValue"
+                 name="itemValue"
+                 min="0"
+                 max="100"
+                 step="1"
+                 [(ngModel)]="eventValue"
+                 [value]="eventValue">
+          <button type="submit" class="">Add</button>
+          Adding {{eventName}} with value {{eventValue}}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
