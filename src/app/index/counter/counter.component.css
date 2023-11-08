@@ -1,16 +1,18 @@
 .addItemPanelWrapper {
   height: 100%;
-  width: 100%;
+  width: 300px;
   padding-top: 20px;
   border-left: var(--borderColorMain) solid 1px;
   border-right: var(--borderColorMain) solid 1px;
   border-bottom: var(--borderColorMain) solid 1px;
+  overflow: hidden;
 
 }
 .pickItemPanel{
   margin: 0 5px;
  padding: 5px 5px;
   display: flex;
+  flex-direction: column;
   gap: 5px;
   max-width: 300px;
   border-radius: 5px 5px 0 0;
@@ -47,5 +49,30 @@ button {
   border: rgba(108, 106, 106, 0.5) solid 1px;
   margin: 0;
 
+}
+.customRange {
 
+
+}
+.addNewCategory {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-top: 5px;
+}
+.addNewCategoryForm {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.addNewCategoryForm button {
+  margin: 0;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  box-shadow: rgba(58, 57, 57, 0.3) 1px 1px 2px 1px;
+  background-color: rgba(108, 106, 106, 0.2);
+  border: var(--borderColorMain) solid 1px;
+  border-radius: 5px;
+  padding: 5px;
 }

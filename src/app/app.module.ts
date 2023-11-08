@@ -10,6 +10,7 @@ import { IndexComponent } from './index/index.component';
 import { CounterComponent } from './index/counter/counter.component';
 import { HistoryComponent } from './index/history/history.component';
 import { StatisticComponent } from './index/statistic/statistic.component';
+import { NotyficationComponent } from './index/counter/notyfication/notyfication.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { StatisticComponent } from './index/statistic/statistic.component';
     IndexComponent,
     CounterComponent,
     HistoryComponent,
-    StatisticComponent
+    StatisticComponent,
+    NotyficationComponent
   ],
   imports: [
     BrowserModule,

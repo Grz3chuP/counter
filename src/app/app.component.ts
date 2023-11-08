@@ -20,12 +20,21 @@ export class AppComponent implements OnInit {
 
 
   private odpalLogin() {
-
           this.serwis.checkLogin()
             .subscribe({
               next: (d: any) => {
                 console.log(d);
                 this.user = d.user;
+              },
+              error: (d: any) => {
+                console.error(d);
+              }
+            });
+
+          this.serwis.refreshCsrfToken()
+            .subscribe({
+              next: (d: any) => {
+                console.log(d);
               },
               error: (d: any) => {
                 console.error(d);

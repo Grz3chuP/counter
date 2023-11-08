@@ -1,27 +1,53 @@
 <div class="counterWrapper">
   <div class="addItemPanelWrapper">
     <div class="pickItemPanel">
-      <div>Category
-        <select class="form-select-sm" [(ngModel)]="category" [value]="testArray[0]">
-          <option *ngFor="let item of testArray" >{{item}}</option>
+      <div class="addNewCategory">
+        <div class="text-nowrap">Add Category</div>
+        <form action="" class="addNewCategoryForm" >
+          <app-notyfication *ngIf="notyfication"
+                            [notyfication]="newCategory "
+          ></app-notyfication>
+          <app-notyfication *ngIf="loadingFinish"
+                            [loadingFinish]="loadingFinish"
+          ></app-notyfication>
+          <input type="text"
+                 name="newCategory"
+                 class="form-control"
+                 placeholder="New Item"
+                 [(ngModel)]="newCategory"
+                 [disabled]="loading" >
+          <button type="submit"
+                  class="mx-1"
+                  [disabled]="loading"
+                  (click)="addCategory()"
+          >Add</button>
+        </form>
+      </div>
+      <div>
+        <div class="eventLabel fitObject m-1">
+          Category
+        </div>
+        <select class="form-select mt-1" [(ngModel)]="categoryId"  >
+          <option *ngFor="let item of categories" [value]="item.id">{{item.category_name}}</option>
         </select>
 
       </div>
-      <div>Add New</div>
+
     </div>
     <div class="addItemPanel">
       <div>
 
       </div>
       <div>
-        <form class="d-flex flex-column gap-2 p-2">
-          <label class="fitObject eventLabel" for="itemName">Event {{category}}</label>
+        <form class="d-flex flex-column gap-2 p-2"  >
+          <label class="fitObject eventLabel" for="itemName">Event {{categoryId}}</label>
           <input type="text"
                  class="form-control eventInput"
                  id="itemName"
                  name="itemName"
                  placeholder="Event Name"
-                 [(ngModel)]="eventName" >
+                 [(ngModel)]="eventName"
+                 [disabled]="loading">
           <label for="itemValue" class="fitObject eventLabel">Value: {{eventValue}}</label>
           <input type="range"
                  id="itemValue"
@@ -29,12 +55,18 @@
                  min="0"
                  max="100"
                  step="1"
+                 class="customRange"
                  [(ngModel)]="eventValue"
-                 [value]="eventValue">
-          <button type="submit" class="">Add</button>
-          Adding {{eventName}} with value {{eventValue}}
+                 [value]="eventValue"
+                 [disabled]="loading">
+          <button type="submit"
+                  class=""
+                  [disabled]="loading"
+                  (click)="addObject()">Add</button>
+          Adding {{eventName}} with value {{eventValue}} to category {{categoryId}}
         </form>
       </div>
     </div>
   </div>
 </div>
+<button (click)="togleNotyfication()">test</button>

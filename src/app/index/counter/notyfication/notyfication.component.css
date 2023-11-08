@@ -1,0 +1,61 @@
+.notyfication {
+  position: absolute;
+  top: 83px ;
+  left: -89px;
+  animation: addCategory 1s ease-in-out, fades 1s infinite;
+  width: fit-content;
+  box-sizing: unset;
+}
+@keyframes addCategory {
+  0% {
+    transform: translate(99px ,-76px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+
+}
+@keyframes fades {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+
+}
+
+.addingCompleted {
+  position: absolute;
+  top: 48px ;
+  left: -29px;
+  color: darkolivegreen;
+  animation: fadeOut 1.5s ease-in;
+  width: fit-content;
+  box-sizing: unset;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 0.1;
+    scale: 0.4;
+  }
+  20% {
+    opacity: 1;
+    scale: 1;
+  }
+
+  70% {
+    opacity: 1;
+    scale: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    scale: 0.7;
+    transform: translateX(200px);
+  }
+
+}

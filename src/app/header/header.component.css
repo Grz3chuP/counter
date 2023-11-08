@@ -2,14 +2,14 @@ header {
   border-bottom: var(--borderColorMain) solid 1px;
   height: 50px;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .headerButtonsWrapper {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 25px;
-  align-items: end;
+  align-items: flex-end;
   transition:  0.3s ease-in-out;
 }
 
