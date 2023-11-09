@@ -1,14 +1,45 @@
 <div class="historyPanelWrapper">
 <div class="selectObjectPanel">
-    <div class="selectObjectPanelHeaderTitle px-2">Select Object</div>
-     <select class="form-select-sm m-1 p-1" [(ngModel)]="categoryId">
-    <option  *ngFor="let item of categoryList() " [value]="item.id">{{item.category_name}}</option>
+    <div class="selectObjectPanelHeaderTitle px-2">Category</div>
+     <select class="form-select-sm m-1 p-1"
+             [(ngModel)]="categoryId"
+              [disabled]="loading">
+    <option  *ngFor="let item of categoryList() "
+             [value]="item.id">{{item.category_name}}</option>
          </select>
-   <button (click)="showHistory(categoryId)">Show</button>
+   <button class="showHistoryButton"
+          (click)="showHistory(categoryId)"
+           [disabled]="loading"
+   >Show</button>
+</div>
+<div class="historyPanel">
+ <div class="dayWrapper d-flex"
+      [ngStyle]="{
+      'animation-duration': '0.6s',
+      'animation-delay': (i +1) * 70 + 'ms',
+      'visibility': 'hidden',
+     }"
+      *ngFor="let day of weekdays; let i = index">
+  <div class="dayTitle">{{day}}</div>
+<div class="dayContent"
+     *ngFor="let singleDay of getDayOfWeekList(i); let ii = index"
+     [ngStyle]="{
+
+      'animation-duration': '0.7s',
+      'animation-delay': (ii +1) * 100 + 'ms',
+      'visibility': 'hidden',
+     }"
+>
+  {{singleDay.object_name}}</div>
+
+
+
+ </div>
 </div>
   <div class="dayListWrapper">
-  <div *ngFor="let object of newObjectsList">
-    {{object.object_name}}{{object.value}}
+
+
   </div>
-  </div>
+
+
 </div>

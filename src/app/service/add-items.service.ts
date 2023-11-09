@@ -25,9 +25,20 @@ return this.http.post(`${environment.server_url}/api/create/item`,  data, { head
     return this.http.get<RootObject>(`${environment.server_url}/api/get/categories`, {withCredentials: true });
   }
 
-   getObjectsList(categoryId: number): Observable<RootObjectInterface> {
-    return this.http.get<RootObjectInterface>(`${environment.server_url}/api/get/object/${categoryId} `,{ withCredentials: true });
-   }
+
+
+  getObjectsList(categoryId: number, weekStart: any, weekEnd: any): Observable<RootObjectInterface> {
+    // Przekazuje początek i koniec tygodnia jako parametry w zapytaniu.
+    return this.http.get<RootObjectInterface>(`${environment.server_url}/api/get/object/${categoryId}`, {
+      params: {
+        weekStart: weekStart,
+        weekEnd: weekEnd
+      },
+      withCredentials: true
+    });
+  }
+
+
   private getHeader() {
     let x_xsrf_token = this.getCookie('XSRF-TOKEN');
     const headers = new HttpHeaders({
