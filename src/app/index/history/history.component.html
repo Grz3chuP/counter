@@ -1,8 +1,14 @@
 <div class="historyPanelWrapper">
 <div class="selectObjectPanel">
     <div class="selectObjectPanelHeaderTitle px-2">Select Object</div>
-     <select class="form-select-sm m-1 p-1">
-    <option  *ngFor="let item of testArray">{{item}}</option>
-  </select>
+     <select class="form-select-sm m-1 p-1" [(ngModel)]="categoryId">
+    <option  *ngFor="let item of categoryList() " [value]="item.id">{{item.category_name}}</option>
+         </select>
+   <button (click)="showHistory(categoryId)">Show</button>
 </div>
+  <div class="dayListWrapper">
+  <div *ngFor="let object of newObjectsList">
+    {{object.object_name}}{{object.value}}
+  </div>
+  </div>
 </div>

@@ -10,7 +10,7 @@
   0% {
     transform: translate(99px ,-76px);
   }
-  100% {
+   100% {
     transform: translate(0, 0);
   }
 
@@ -37,23 +37,32 @@
   width: fit-content;
   box-sizing: unset;
 }
+.addingFinished {
+  position: absolute;
+  top: 0 ;
+  left: 0;
+  opacity: 0;
+  color: darkolivegreen;
+  animation: fadeOut 1.5s ease-in;
+  width: fit-content;
+  box-sizing: unset;
+}
 @keyframes fadeOut {
   0% {
-    opacity: 0.1;
+
     scale: 0.4;
   }
   20% {
     opacity: 1;
     scale: 1;
   }
-
   70% {
     opacity: 1;
     scale: 1;
     transform: translateX(0);
   }
   100% {
-    opacity: 0;
+
     scale: 0.7;
     transform: translateX(200px);
   }

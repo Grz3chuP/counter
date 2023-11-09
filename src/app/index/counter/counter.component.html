@@ -63,7 +63,13 @@
                   class=""
                   [disabled]="loading"
                   (click)="addObject()">Add</button>
+          <div class="position-relative pt-3">
+            <app-notyfication *ngIf="addingFinish"
+                              [addingFinish]="addingFinish"
+            ></app-notyfication>
+          </div>
           Adding {{eventName}} with value {{eventValue}} to category {{categoryId}}
+
         </form>
       </div>
     </div>

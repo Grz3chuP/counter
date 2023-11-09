@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {RootObject} from "../interfaces/CategoriesInterfaces";
+import {RootObjectInterface} from "../interfaces/ObjectsInterface";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,9 @@ return this.http.post(`${environment.server_url}/api/create/item`,  data, { head
     return this.http.get<RootObject>(`${environment.server_url}/api/get/categories`, {withCredentials: true });
   }
 
+   getObjectsList(categoryId: number): Observable<RootObjectInterface> {
+    return this.http.get<RootObjectInterface>(`${environment.server_url}/api/get/object/${categoryId} `,{ withCredentials: true });
+   }
   private getHeader() {
     let x_xsrf_token = this.getCookie('XSRF-TOKEN');
     const headers = new HttpHeaders({

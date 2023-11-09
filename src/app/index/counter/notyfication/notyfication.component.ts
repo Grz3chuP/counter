@@ -8,5 +8,6 @@ import {Component, Input} from '@angular/core';
 export class NotyficationComponent {
   @Input() notyfication: string = '';
   @Input() loadingFinish: boolean = false;
+  @Input() addingFinish: boolean = false;
 
 }

@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {AddItemsService} from "../../service/add-items.service";
 import {Category, RootObject} from "../../interfaces/CategoriesInterfaces";
 import {of, switchMap, tap, timeout} from "rxjs";
+import {categoryList} from "../../store/data";
 
 
 
@@ -16,6 +17,7 @@ import {of, switchMap, tap, timeout} from "rxjs";
 export class CounterComponent implements OnInit{
 
   categories: Category[] = [];
+
   eventValue: number = 0;
   newCategory: string = '';
   eventName: string = '';
@@ -23,6 +25,7 @@ export class CounterComponent implements OnInit{
   notyfication: boolean = false;
   loading: boolean = false;
   loadingFinish: boolean = false;
+  addingFinish: boolean = false;
   constructor(private addItemsService: AddItemsService) {
 
 
@@ -69,21 +72,38 @@ export class CounterComponent implements OnInit{
         alert('Błąd dodawania kategorii\n' + error.error.message);
         this.togleNotyfication();
         this.loading = false;
+
       });
 
   }
   addObject() {
+    this.loading = true;
     if (!this.categoryId) {
+      this.loading = false;
+      alert('Wybierz kategorię')
       return;
     }
+    if (!this.eventName) {
+      this.loading = false;
+      alert('Wpisz nazwę obiektu')
+      return;
+    }
+
     this.addItemsService.createItem(this.eventName, this.eventValue, this.categoryId)
+
+      .pipe()
       .subscribe({
         next: response => {
           console.log(response);
+          this.loading = false;
+          this.addingFinish = true;
+          this.addingCompleted()
         },
         error: error => {
           console.log(error);
           alert('Błąd dodawania obiektu\n' + error.error.message);
+          this.loading = false;
+          this.eventName = '';
         }
 
       });
@@ -96,7 +116,7 @@ export class CounterComponent implements OnInit{
         next: (response: RootObject) => {
           console.log(response);
           this.categories = response.categories;
-
+          categoryList.set(this.categories);
         },
         error: error => {
           console.log(error);
@@ -109,6 +129,7 @@ export class CounterComponent implements OnInit{
 
   togleNotyfication() {
     this.notyfication = !this.notyfication;
+
   }
 
   private getCategoryListAndContinue() {
@@ -136,13 +157,12 @@ export class CounterComponent implements OnInit{
   loadingCompleted() {
     setTimeout(() => {
       this.loadingFinish = false;
-    }, 1500);
+          }, 1500);
   }
-  checkIfIdExist() {
-    if (this.categoryId) {
-      return  this.categories[27].category_name;
-    }
-    return '';
+  addingCompleted() {
+    setTimeout(() => {
+      this.addingFinish = false;
+          }, 1500);
+  }
 
-  }
 }
