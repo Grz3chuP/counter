@@ -11,12 +11,14 @@
 
 }
 .weekChangeWrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 5px;
   font-size: 0.8rem;
    gap: 10px;
+
 }
 .weekChange {
   padding: 0 5px;
@@ -33,4 +35,11 @@
 .weekTotalEvents {
   font-size: 0.8rem;
 
+}
+.currentWeekAnimation {
+position: absolute;
+  right: 35px;
+  bottom: -48px;
+  animation: fadeOut 0.5s ease-in-out;
+  animation-fill-mode: forwards;
 }

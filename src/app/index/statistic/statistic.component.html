@@ -1,1 +1,45 @@
-<p>statistic works!</p>
+<div class="statisticPanelWrapper">
+  <div class="selectCategoryPanel">
+    <div class="selectObjectPanelHeaderTitle px-2">Category</div>
+    <select class="form-select-sm m-1 p-1"
+            [(ngModel)]="categoryId"
+            [disabled]="loading">
+      <option  *ngFor="let item of categoryList() "
+               [value]="item.id">{{item.category_name}}</option>
+    </select>
+    <button class="showHistoryButton customButtonGrey"
+            (click)="showHistoryPrevious(categoryId!)"
+            [disabled]="loading"
+    >Show</button>
+
+  </div>
+<!--  //date Picker-->
+  <div class="datePickerWrapper">
+    <input type="date"
+           class="datePicker"
+           [disabled]="loading"
+           [(ngModel)]="dateFrom">
+    <input type="date"
+           class="datePicker"
+           [disabled]="loading"
+           [(ngModel)]="dateTo">
+
+  </div>
+
+  <div class="selectObjectPanel">
+    <div class="selectObjectPanelHeaderTitle px-2">Event</div>
+    <select class="form-select-sm m-1 p-1"
+            [(ngModel)]="categoryId"
+            [disabled]="loading">
+      <option  *ngFor="let item of categoryList() "
+               [value]="item.id">{{item.category_name}}</option>
+    </select>
+   <div class="eventListWrapper">
+     <div class="eventList" *ngFor="let event of checkIfNewObjectChanged()">
+       {{event}}
+     </div>
+   </div>
+
+  </div>
+{{newObjectsList.length}}
+</div>

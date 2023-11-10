@@ -1,8 +1,10 @@
 <div class="weekHistoryPanelWrapper">
   <div class="weekHistoryActualShow">
     <div class="weekChangeWrapper">
-      <div class="weekChange customButtonGrey">Prev Week</div>
-      <div class="weekChange customButtonGrey">This Week</div>
+      <div class="weekChange customButtonGrey" (click)="changeWeek()">Prev Week</div>
+      <div class="weekChange customButtonGrey" (click)="changeWeekBack()">Next Week</div>
+      <div class="weekChange customButtonGrey" (click)="changeToCurrentWeek()">This Week</div>
+      <div *ngIf="currentWeek" class="currentWeekAnimation">This Week</div>
     </div >
     <div class="weekDate">
       week: {{startOfWeek }} - {{actualEndOfWeek}}

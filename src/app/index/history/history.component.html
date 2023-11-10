@@ -18,7 +18,9 @@
               [actualEndOfWeek]="actualShownWeekEnd"
               [startOfWeek]="actualShownWeekStart"
               [weekTotal]="getWeekTotal()"
-              [weekTotalEvents]="newObjectsList.length">
+              [weekTotalEvents]="newObjectsList.length"
+          (changeWeekToParent)= "showHistoryChildrenAccess($event)"
+  >
 
  </app-weekhistory>
  <div class="dayWrapper d-flex"
@@ -40,7 +42,8 @@
      }"
 >
   {{singleDay.object_name}}
- <div class="dayValue">{{singleDay.value}}</div>
+ <div class="dayValue">
+   <div>{{singleDay.value}}</div></div>
 </div>
 
 

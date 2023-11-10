@@ -46,6 +46,31 @@ export class HistoryComponent implements OnInit{
           console.log(response);
           this.newObjectsList = response.objects;
           this.loading = false;
+          return this.newObjectsList;
+        })
+      )
+      .subscribe({
+
+        error: error => {
+          console.log(error);
+        }
+      });
+  }
+  showHistoryChildrenAccess(week:number) {
+    console.log(week);
+    this.showHistoryPrevious(this.categoryId, week)
+  }
+  showHistoryPrevious(categoryId: number, minusWeek:number) {
+    const newMonday = this.getMonday().minus({weeks: minusWeek});
+    const newEndOfWeek = this.endOfWeek().minus({weeks: minusWeek});
+    this.actualShownWeekStart = newMonday.toFormat('dd.MM.yyyy');
+    this.actualShownWeekEnd = newEndOfWeek.toFormat('dd.MM.yyyy');
+    this.loading = true;
+    this.addItemsService.getObjectsList(categoryId, newMonday, newEndOfWeek)
+      .pipe(
+        switchMap((response: RootObjectInterface) => {
+          console.log(response);
+          this.newObjectsList = response.objects;
           this.loading = false;
           return this.newObjectsList;
         })
@@ -57,7 +82,6 @@ export class HistoryComponent implements OnInit{
         }
       });
   }
-
 
   //wskazanie poniedzialku jako pierwszego dnia tygodnia
 
@@ -79,8 +103,7 @@ export class HistoryComponent implements OnInit{
    const dayList = this.newObjectsList.filter(object =>    {
     const createdAtDate =  DateTime.fromISO(object.created_at)
      return createdAtDate.weekday  === day + 1 });
-   console.log(dayList);
-   return dayList;
+    return dayList;
   }
  getWeekTotal() {
     const weekTotal = this.newObjectsList.reduce((sum, object) => sum + object.value, 0);
