@@ -10,30 +10,38 @@
     <button class="showHistoryButton customButtonGrey"
             (click)="showHistoryPrevious(categoryId!)"
             [disabled]="loading"
-    >Show</button>
+    >Pick</button>
 
   </div>
 <!--  //date Picker-->
   <div class="datePickerWrapper">
     <input type="date"
+           [value]="dateFrom"
            class="datePicker"
            [disabled]="loading"
            [(ngModel)]="dateFrom">
     <input type="date"
            class="datePicker"
+           [value]="dateTo"
            [disabled]="loading"
            [(ngModel)]="dateTo">
 
   </div>
 
   <div class="selectObjectPanel">
-    <div class="selectObjectPanelHeaderTitle px-2">Event</div>
+    <div class="wrapper">
+    <div class="selectObjectPanelTitle px-2">Event</div>
     <select class="form-select-sm m-1 p-1"
-            [(ngModel)]="categoryId"
+            [(ngModel)]="uniqName"
             [disabled]="loading">
-      <option  *ngFor="let item of categoryList() "
-               [value]="item.id">{{item.category_name}}</option>
+      <option  *ngFor="let event of checkIfNewObjectChanged()"
+               [value]="event">{{event}}</option>
     </select>
+      <button class="showHistoryButton customButtonGrey"
+              (click)="getEventListForDay()"
+              [disabled]="loading || !uniqName"
+      >Show</button>
+    </div>
    <div class="eventListWrapper">
      <div class="eventList" *ngFor="let event of checkIfNewObjectChanged()">
        {{event}}
@@ -41,5 +49,31 @@
    </div>
 
   </div>
-{{newObjectsList.length}}
+  <div class="dayWrapper d-flex"
+       [ngStyle]="{
+      'animation-duration': '0.6s',
+      'animation-delay': (i +1) * 70 + 'ms',
+      'visibility': 'hidden',  }"
+       *ngFor="let day of weekdays; let i = index">
+    <div class="dayTitle">{{day}}</div>
+    <div class="dayTotal">{{getDayTotalValue(i)}}</div>
+    <div class="dayTotalEvents">{{getDayOfWeekList(i).length}}</div>
+    <div class="dayContent"
+         *ngFor="let singleDay of getDayOfWeekList(i); let ii = index"
+         [ngStyle]="{
+
+      'animation-duration': '0.7s',
+      'animation-delay': (ii +1) * 100 + 'ms',
+      'visibility': 'hidden',
+     }"
+    >
+      {{singleDay.object_name}}
+      <div class="dayValue">
+        <div>{{singleDay.value}}</div></div>
+    </div>
+
+
+
+  </div>
+{{newObjectsList.length}}{{uniqObjectsName.length}}{{uniqName}}
 </div>
