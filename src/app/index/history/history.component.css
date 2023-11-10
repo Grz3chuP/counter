@@ -23,13 +23,19 @@
 
 .dayWrapper {
 border: rgba(108, 106, 106, 0.5) solid 1px;
+  position: relative;
   border-radius: 5px;
   padding: 0 5px;
   margin-bottom: 5px;
   background-color: rgba(255, 255, 255, 0.6);
-  min-height: 32px;
+  min-height: 36px;
   animation:  fadeInDay;
   animation-fill-mode: forwards;
+  transition: 0.5s;
+  overflow: hidden;
+  overflow-x: auto;
+
+
 }
 .historyPanel {
   max-width: 300px;
@@ -39,21 +45,26 @@ border: rgba(108, 106, 106, 0.5) solid 1px;
   margin: 0 5px 5px 5px;
 }
 .dayTitle {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  min-width: 74px;
+
 }
 
 .dayContent {
+  position: relative;
   width: fit-content;
   background-color: rgba(180, 255, 30, 0.4);
   border: rgba(108, 106, 106, 0.5) solid 1px;
-  padding: 0 2px;
+  padding: 0 10px 0 2px;
   border-radius: 5px;
   margin: 2px 5px;
   animation:  fadeInDay;
   animation-fill-mode: forwards;
-
+  max-height: 25px;
+  font-size: 0.9rem;
+  text-wrap: nowrap;
 
 }
 .showHistoryButton {
@@ -76,4 +87,66 @@ border: rgba(108, 106, 106, 0.5) solid 1px;
     opacity: 1;
     visibility: visible;
   }
+}
+.dayTotal {
+  position: absolute;
+  left: 5px;
+  bottom: -3px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding-right: 2px;
+  width: fit-content;
+}
+.dayTotal:before {
+  content: 'Total: ';
+  font-size: 0.6rem;
+  border-radius: 5px;
+  padding-left: 2px;
+}
+.dayTotalEvents {
+  position: absolute;
+  left: 50px;
+  bottom: -3px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding-right: 2px;
+  width: fit-content;
+}
+.dayTotalEvents:before {
+  content: 'Total: ';
+  font-size: 0.6rem;
+  border-radius: 5px;
+  padding-left: 2px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #545454;
+  border-radius: 3px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(203, 255, 94, 0.5);
+}
+.dayValue {
+  text-align: center;
+  position: absolute;
+  font-size: 0.7rem;
+  font-weight: 500;
+  min-width: 15px;
+  right: -8px;
+  bottom: 2px;
+  padding-right: 2px;
+  width: fit-content;
+  border-radius: 15px;
+  border: rgba(108, 106, 106, 0.5) solid 1px;
+  background-color: rgba(122, 182, 0, 1)
 }

@@ -11,6 +11,7 @@ import { CounterComponent } from './index/counter/counter.component';
 import { HistoryComponent } from './index/history/history.component';
 import { StatisticComponent } from './index/statistic/statistic.component';
 import { NotyficationComponent } from './index/counter/notyfication/notyfication.component';
+import { WeekhistoryComponent } from './index/history/weekhistory/weekhistory.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NotyficationComponent } from './index/counter/notyfication/notyfication
     CounterComponent,
     HistoryComponent,
     StatisticComponent,
-    NotyficationComponent
+    NotyficationComponent,
+    WeekhistoryComponent
   ],
   imports: [
     BrowserModule,

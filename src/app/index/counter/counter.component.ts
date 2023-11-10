@@ -2,7 +2,7 @@ import {Component, OnInit, signal} from '@angular/core';
 import {AddItemsService} from "../../service/add-items.service";
 import {Category, RootObject} from "../../interfaces/CategoriesInterfaces";
 import {of, switchMap, tap, timeout} from "rxjs";
-import {categoryList} from "../../store/data";
+import {categoryIdStore, categoryList} from "../../store/data";
 
 
 
@@ -98,6 +98,7 @@ export class CounterComponent implements OnInit{
           this.loading = false;
           this.addingFinish = true;
           this.addingCompleted()
+          categoryIdStore.set(this.categoryId);
         },
         error: error => {
           console.log(error);

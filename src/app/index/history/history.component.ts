@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {categoryList} from "../../store/data";
+import {categoryIdStore, categoryList} from "../../store/data";
 import {AddItemsService} from "../../service/add-items.service";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
 import {DateTime} from "luxon";
@@ -18,16 +18,23 @@ export class HistoryComponent implements OnInit{
   newObjectsList: ObjectInterface[] = [];
   weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   loading: boolean = false;
+  actualShownWeekStart: string = '';
+  actualShownWeekEnd: string = '';
   constructor(private addItemsService: AddItemsService) {
 
   }
 
   ngOnInit(): void {
-    this.selectedObject = categoryList()[0].category_name;
-
-
+    this.actualShownWeekStart = this.getMonday().toFormat('dd.MM.yyyy');
+    this.actualShownWeekEnd = this.endOfWeek().toFormat('dd.MM.yyyy');
+    this.showHistory(categoryIdStore()!);
+    if (categoryIdStore() === undefined) {
+    this.loading = false;
     }
-
+    else {
+      this.categoryId = categoryIdStore()!;
+    }
+  }
 
   protected readonly categoryList = categoryList;
 
@@ -58,7 +65,7 @@ export class HistoryComponent implements OnInit{
     const now = DateTime.now()
     console.log(now.weekday);
     const day = now.weekday;
-    const lastMonday =  (7 - day ) % 7;
+    const lastMonday =  (9 - day ) % 7;
     const monday = now.minus({days: lastMonday}).set({hour: 0, minute: 0, second: 0, millisecond: 0});
     return monday;
 
@@ -71,12 +78,20 @@ export class HistoryComponent implements OnInit{
   getDayOfWeekList(day: number) {
    const dayList = this.newObjectsList.filter(object =>    {
     const createdAtDate =  DateTime.fromISO(object.created_at)
-     return createdAtDate.weekday  === day });
+     return createdAtDate.weekday  === day + 1 });
    console.log(dayList);
    return dayList;
   }
+ getWeekTotal() {
+    const weekTotal = this.newObjectsList.reduce((sum, object) => sum + object.value, 0);
+    return weekTotal;
+ }
 
-
+  getDayTotalValue(day: number) {
+    const dayList = this.getDayOfWeekList(day);
+    const dayTotalValue = dayList.reduce((sum, object) => sum + object.value, 0);
+    return dayTotalValue;
+  }
   protected readonly DateTime = DateTime;
   protected readonly animation = animation;
   protected readonly useAnimation = useAnimation;
