@@ -6,17 +6,24 @@ import {categoryIdStore, categoryList} from "../../store/data";
 import {MainService} from "../../main.service";
 import {DateTime} from "luxon";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
-
-
-
-
-
+import {trigger, state, style, animate, transition} from "@angular/animations";
 
 
 @Component({
   selector: 'app-counter',
   templateUrl: './counter.component.html',
-  styleUrls: ['./counter.component.css']
+  styleUrls: ['./counter.component.css'],
+  animations: [
+    trigger('close', [
+      state('true', style({
+        opacity: 1
+      })),
+      state('false', style({
+        opacity: 0
+      })),
+      transition('true <=> false', animate(500))
+    ]),
+    ]
 })
 export class CounterComponent implements OnInit{
 
