@@ -4,6 +4,9 @@ import {Category, RootObject} from "../../interfaces/CategoriesInterfaces";
 import {of, switchMap, tap, timeout} from "rxjs";
 import {categoryIdStore, categoryList} from "../../store/data";
 import {MainService} from "../../main.service";
+import {DateTime} from "luxon";
+import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
+
 
 
 
@@ -18,7 +21,7 @@ import {MainService} from "../../main.service";
 export class CounterComponent implements OnInit{
 
   categories: Category[] = [];
-
+  newObjectsList: ObjectInterface[] = [];
   eventValue: number = 0;
   newCategory: string = '';
   eventName: string = '';
@@ -27,6 +30,8 @@ export class CounterComponent implements OnInit{
   loading: boolean = false;
   loadingFinish: boolean = false;
   addingFinish: boolean = false;
+  uniqueEventsName: string[] = [];
+
   constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
 
@@ -165,5 +170,45 @@ export class CounterComponent implements OnInit{
       this.addingFinish = false;
     }, 1500);
   }
+// wczytuje liste obiektów z ostatnich 2 tygodni
+  // i wyciagam tylko unique nazwy obiektów
+  loadObjectName() {
+    this.loading = true;
+    if(this.categoryId === undefined) {
+      this.loading = false;
+      return;
+         }
 
+    this.addItemsService.getObjectsList(this.categoryId, this.getLast2Weeks(), DateTime.now())
+      .pipe(
+        switchMap((response: RootObjectInterface) => {
+          console.log(response);
+          this.newObjectsList = response.objects;
+          this.getUniqueEventsName();
+          this.loading = false;
+          return this.newObjectsList;
+        })
+      )
+      .subscribe({
+
+        error: error => {
+          if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
+          console.log(error);
+        }
+      });
+  }
+  getUniqueEventsName() {
+    this.uniqueEventsName =  [...new Set(this.newObjectsList.map((object) => object.object_name))];
+    console.log(this.uniqueEventsName);
+  }
+
+  getLast2Weeks() {
+    const now = DateTime.now();
+    return now.minus({weeks: 2});
+  }
+
+
+  changeEventName(event: string) {
+    this.eventName = event;
+  }
 }

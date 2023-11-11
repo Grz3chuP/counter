@@ -27,7 +27,7 @@
         <div class="eventLabel fitObject m-1">
           Category
         </div>
-        <select class="form-select mt-1" [(ngModel)]="categoryId"  >
+        <select class="form-select mt-1" [(ngModel)]="categoryId" (change)="loadObjectName()" >
           <option *ngFor="let item of categories" [value]="item.id">{{item.category_name}}</option>
         </select>
 
@@ -39,13 +39,35 @@
 
       </div>
       <div>
-        <form class="d-flex flex-column gap-2 p-2"  >
-          <label class="fitObject eventLabel" for="itemName">Event {{categoryId}}</label>
+        <div class="selectWrapper  d-flex flex-column align-items-start gap-1">
+            <div class="eventPanelName eventLabel">
+              Event
+            </div>
+          <select class="form-select mt-1 mb-1 selectMinWidth" [(ngModel)]="eventName">
+            <option *ngFor="let item of uniqueEventsName" [value]="item">{{item}}</option>
+          </select>
+        </div>
+
+        <form class="d-flex flex-column gap-2 "  >
+          <label class="fitObject " for="itemName">
+          </label>
+          <div class="uniqEventsNameWrapper">
+            <div class="uniqEventsNames customButtonGrey"
+                 [ngClass]="{
+                  'customButtonGreyActive': event === eventName,
+                  'customButtonGrey': event !== eventName
+                 }"
+                 (click)="changeEventName(event)"
+                 *ngFor="let event of uniqueEventsName">
+              {{event}}
+            </div>
+          </div>
+
           <input type="text"
                  class="form-control eventInput"
                  id="itemName"
                  name="itemName"
-                 placeholder="Event Name"
+                 placeholder="Enter Event Name"
                  [(ngModel)]="eventName"
                  [disabled]="loading">
           <label for="itemValue" class="fitObject eventLabel">Value: {{eventValue}}</label>
@@ -75,4 +97,6 @@
     </div>
   </div>
 </div>
+{{uniqueEventsName}}
 <button (click)="togleNotyfication()">test</button>
+

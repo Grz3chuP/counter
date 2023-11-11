@@ -3,14 +3,15 @@
     <div class="selectObjectPanelHeaderTitle px-2">Category</div>
      <select class="form-select-sm m-1 p-1"
              [(ngModel)]="categoryId"
+             (change)="showHistory(categoryId)"
               [disabled]="loading">
     <option  *ngFor="let item of categoryList() "
              [value]="item.id">{{item.category_name}}</option>
          </select>
-   <button class="showHistoryButton"
-          (click)="showHistory(categoryId)"
-           [disabled]="loading"
-   >Show</button>
+<!--   <button class="showHistoryButton"-->
+<!--          (click)="showHistory(categoryId)"-->
+<!--           [disabled]="loading"-->
+<!--   >Show</button>-->
 </div>
 
 <div class="historyPanel">

@@ -29,6 +29,7 @@ return this.http.post(`${environment.server_url}/api/create/item`,  data, { head
 
   getObjectsList(categoryId: number, weekStart: any, weekEnd: any): Observable<RootObjectInterface> {
     // Przekazuje początek i koniec tygodnia jako parametry w zapytaniu.
+    console.log(weekStart + ' ' + weekEnd + ' ' + categoryId);
     return this.http.get<RootObjectInterface>(`${environment.server_url}/api/get/object/${categoryId}`, {
       params: {
         weekStart: weekStart,
