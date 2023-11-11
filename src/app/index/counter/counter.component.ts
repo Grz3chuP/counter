@@ -3,6 +3,7 @@ import {AddItemsService} from "../../service/add-items.service";
 import {Category, RootObject} from "../../interfaces/CategoriesInterfaces";
 import {of, switchMap, tap, timeout} from "rxjs";
 import {categoryIdStore, categoryList} from "../../store/data";
+import {MainService} from "../../main.service";
 
 
 
@@ -26,13 +27,13 @@ export class CounterComponent implements OnInit{
   loading: boolean = false;
   loadingFinish: boolean = false;
   addingFinish: boolean = false;
-  constructor(private addItemsService: AddItemsService) {
+  constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
 
   }
 
   ngOnInit(): void {
-  this.getCategoryList();
+    this.getCategoryList();
   }
   // addCategory() {
   //   this.addItemsService.createCategory(this.newCategory)
@@ -69,10 +70,10 @@ export class CounterComponent implements OnInit{
 
       }, (error: any) => {
         console.error('Błąd dodawania kategorii', error);
+        if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
         alert('Błąd dodawania kategorii\n' + error.error.message);
         this.togleNotyfication();
         this.loading = false;
-
       });
 
   }
@@ -121,8 +122,8 @@ export class CounterComponent implements OnInit{
         },
         error: error => {
           console.log(error);
+          if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return; //specjalnie zmieszczone w 1 linijce żeby nie było widać bardzo
           alert('Błąd pobierania listy kategorii\n' + error.error.message);
-
         }
       });
 
@@ -130,7 +131,6 @@ export class CounterComponent implements OnInit{
 
   togleNotyfication() {
     this.notyfication = !this.notyfication;
-
   }
 
   private getCategoryListAndContinue() {
@@ -158,12 +158,12 @@ export class CounterComponent implements OnInit{
   loadingCompleted() {
     setTimeout(() => {
       this.loadingFinish = false;
-          }, 1500);
+    }, 1500);
   }
   addingCompleted() {
     setTimeout(() => {
       this.addingFinish = false;
-          }, 1500);
+    }, 1500);
   }
 
 }
