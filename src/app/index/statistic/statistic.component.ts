@@ -71,6 +71,7 @@ constructor(private addItemService: AddItemsService) {
         switchMap((response: RootObjectInterface) => {
           console.log(response);
           this.newObjectsList = response.objects;
+          this.newObjectNameList = this.newObjectsList
           this.loading = false;
           return this.newObjectsList;
         })
