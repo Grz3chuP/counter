@@ -5,6 +5,7 @@ import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInte
 import {DateTime} from "luxon";
 import {switchMap} from "rxjs";
 import {animation, useAnimation} from "@angular/animations";
+import {MainService} from "../../main.service";
 
 @Component({
   selector: 'app-history',
@@ -20,7 +21,8 @@ export class HistoryComponent implements OnInit{
   loading: boolean = false;
   actualShownWeekStart: string = '';
   actualShownWeekEnd: string = '';
-  constructor(private addItemsService: AddItemsService) {
+
+  constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
   }
 
@@ -52,6 +54,7 @@ export class HistoryComponent implements OnInit{
       .subscribe({
 
         error: error => {
+          if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
           console.log(error);
         }
       });
@@ -78,6 +81,7 @@ export class HistoryComponent implements OnInit{
       .subscribe({
 
         error: error => {
+          if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
           console.log(error);
         }
       });

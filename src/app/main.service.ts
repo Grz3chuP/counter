@@ -17,4 +17,12 @@ export class MainService {
     return this.http.get(`${environment.server_url}/api/user`, { withCredentials: true });
   }
 
+  checkIfUnauthenticatedAndRedirectIfSo(error: any) {
+    if (error.error.message.startsWith('Unauthenticated')) {
+      const returnUrl = encodeURIComponent(window.location.href);
+      window.location.href = `${environment.server_url}/login?intended=${returnUrl}`;
+      return true;
+    }
+    return false;
+  }
 }
