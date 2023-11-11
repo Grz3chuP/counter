@@ -12,7 +12,7 @@
           ></app-notyfication>
           <input type="text"
                  name="newCategory"
-                 class="form-control"
+                 class="form-control customSelectDecoration"
                  placeholder="New Item"
                  [(ngModel)]="newCategory"
                  [disabled]="loading">
@@ -28,7 +28,7 @@
         <div class=" fitObject m-1">
           Category
         </div>
-        <select class="form-select mt-1" [(ngModel)]="categoryId" (change)="loadObjectName()">
+        <select class="form-select mt-1 customSelectDecoration" [(ngModel)]="categoryId" (change)="loadObjectName()">
           <option *ngFor="let item of categories" [value]="item.id">{{item.category_name}}</option>
         </select>
 
@@ -58,24 +58,31 @@
           </label>
           <div class="uniqEventsNameWrapper">
             <div class="uniqEventsNames customButtonGrey"
+
                  [ngClass]="{
                   'customButtonGreyActive': event === eventName,
                   'customButtonGrey': event !== eventName
                  }"
+                 [ngStyle]="{
+
+                 'animation-duration': '0.7s',
+                 'animation-delay': (ii +1) * 100 + 'ms',
+                 'visibility': 'hidden',
+                 }"
                  (click)="changeEventName(event)"
-                 *ngFor="let event of uniqueEventsName">
+                 *ngFor="let event of uniqueEventsName; let ii = index">
               {{event}}
             </div>
           </div>
 
           <input type="text"
-                 class="form-control eventInput"
+                 class="form-control customSelectDecoration"
                  id="itemName"
                  name="itemName"
                  placeholder="Enter Event Name"
                  [(ngModel)]="eventName"
                  [disabled]="loading">
-          <label for="itemValue" class="fitObject eventLabel">Value: {{eventValue}}</label>
+          <label for="itemValue" class="fitObject">Value {{eventValue}}</label>
           <input type="range"
                  id="itemValue"
                  name="itemValue"
@@ -103,6 +110,5 @@
     </div>
   </div>
 </div>
-{{uniqueEventsName}}
-<button (click)="togleNotyfication()">test</button>
+
 

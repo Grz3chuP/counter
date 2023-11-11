@@ -29,7 +29,11 @@
   transition: 0.3s ease-in-out;
   box-shadow: rgba(58, 57, 57, 0.3) 1px 1px 2px 1px;
 }
-
+.customSelectDecoration {
+  min-width: 125px;
+  border: none;
+  box-shadow: rgba(58, 57, 57, 0.3) 1px 1px 2px 1px;
+}
 
 
 

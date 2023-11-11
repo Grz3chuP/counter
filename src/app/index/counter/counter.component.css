@@ -45,11 +45,7 @@ button {
   border-bottom: rgba(108, 106, 106, 0.5) solid 1px;
 
 }
-.eventInput {
-  border: rgba(108, 106, 106, 0.5) solid 1px;
-  margin: 0;
 
-}
 .customRange {
 
 
@@ -79,12 +75,48 @@ button {
 .uniqEventsNameWrapper {
   display: flex;
   gap: 5px;
-  flex-wrap: wrap;
+  margin: 2px;
+  flex-wrap: nowrap;
+  max-height: 36px;
+  overflow: hidden;
+  overflow-x: auto;
 }
 .uniqEventsNames {
  text-wrap: nowrap;
+  margin-bottom: 2px;
   padding: 0 5px;
+  animation:  fadeInDay;
+  animation-fill-mode: forwards;
+}
+::-webkit-scrollbar {
 
+  width: 5px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #545454;
+  border-radius: 3px;
+  margin: 2px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+  margin: 2px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(203, 255, 94, 0.5);
+}
+@keyframes fadeInDay {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 .selectMinWidth {
   min-width: 125px;
