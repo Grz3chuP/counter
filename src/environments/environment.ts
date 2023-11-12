@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  server_url: 'http://srv101.loc:8001'
+  production: true,
+  server_url: 'https://srv101.appiec.com'
 };
