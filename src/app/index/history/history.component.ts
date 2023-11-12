@@ -21,7 +21,7 @@ export class HistoryComponent implements OnInit{
   loading: boolean = false;
   actualShownWeekStart: string = '';
   actualShownWeekEnd: string = '';
-
+  openRemovePanels: {[key: number]: boolean} = {};
   constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
   }
@@ -119,9 +119,16 @@ export class HistoryComponent implements OnInit{
     const dayTotalValue = dayList.reduce((sum, object) => sum + object.value, 0);
     return dayTotalValue;
   }
+  openAndCloseRemovePanel(id: number) {
+    if(!this.openRemovePanels[id]) {
+      this.openRemovePanels[id] = false;
+    }
+    this.openRemovePanels[id] = !this.openRemovePanels[id];
+  }
   protected readonly DateTime = DateTime;
   protected readonly animation = animation;
   protected readonly useAnimation = useAnimation;
+
 }
 
 

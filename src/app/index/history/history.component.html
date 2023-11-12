@@ -22,7 +22,6 @@
               [weekTotalEvents]="newObjectsList.length"
           (changeWeekToParent)= "showHistoryChildrenAccess($event)"
   >
-
  </app-weekhistory>
  <div class="dayWrapper d-flex"
       [ngStyle]="{
@@ -36,13 +35,17 @@
 <div class="dayContent"
      *ngFor="let singleDay of getDayOfWeekList(i); let ii = index"
      [ngStyle]="{
-
       'animation-duration': '0.7s',
       'animation-delay': (ii +1) * 100 + 'ms',
       'visibility': 'hidden',
      }"
 >
   {{singleDay.object_name}}
+  <div class="removeButton" (click)="openAndCloseRemovePanel(singleDay.id)">
+    X
+
+  </div>
+  <app-remove-object *ngIf="openRemovePanels[singleDay.id]"/>
  <div class="dayValue">
    <div>{{singleDay.value}}</div></div>
 </div>

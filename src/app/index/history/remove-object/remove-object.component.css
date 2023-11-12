@@ -1,0 +1,26 @@
+.removePanelWrapper {
+  position: relative;
+}
+.removePanel {
+  position: absolute;
+  top: -25px;
+  left: -94px;
+  width: 80px;
+  height: 30px;
+  background-color: burlywood;
+  animation: openRemovePanelAnimation 0.5s ease-in-out;
+  border-radius: 5px;
+
+}
+
+@keyframes openRemovePanelAnimation {
+  0% {
+    transform: translate(60%, -120%) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+
+}
