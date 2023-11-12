@@ -6,6 +6,7 @@ import {HistoryComponent} from "./index/history/history.component";
 import {StatisticComponent} from "./index/statistic/statistic.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: 'index/counter', pathMatch: 'full'},
   {path: 'index', component: IndexComponent, children: [
       { path: '', redirectTo: 'counter', pathMatch: 'full'},
       { path: 'counter', component: CounterComponent },
