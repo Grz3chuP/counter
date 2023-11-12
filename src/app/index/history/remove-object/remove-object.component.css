@@ -3,9 +3,11 @@
 }
 .removePanel {
   position: absolute;
+  display: flex;
+
   top: -25px;
-  left: -94px;
-  width: 80px;
+  left: -97px;
+  width: 83px;
   height: 30px;
   background-color: burlywood;
   animation: openRemovePanelAnimation 0.5s ease-in-out;
@@ -23,4 +25,40 @@
     opacity: 1;
   }
 
+}
+.bin {
+  border-right: var(--borderColorMain) solid 1px;
+}
+
+.bin img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.change img {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+.bin img:hover {
+  transform: scale(1.2);
+}
+.change img:hover {
+  transform: rotate(90deg);
+}
+.changeValueInput {
+  margin-left: 1px;
+  width: 40px;
+  height: 24px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 0.8rem;
+  transition: 0.3s ease-in-out;
+  box-shadow: rgba(58, 57, 57, 0.3) 1px 1px 2px 1px;
+}
+.changeValueWrapper  {
+  gap: 2px;
 }
