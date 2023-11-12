@@ -2,7 +2,7 @@ import {Component, OnInit, signal} from '@angular/core';
 import {AddItemsService} from "../../service/add-items.service";
 import {Category, RootObject} from "../../interfaces/CategoriesInterfaces";
 import {of, switchMap, tap, timeout} from "rxjs";
-import {categoryIdStore, categoryList} from "../../store/data";
+import {categoryIdStore, categoryList, loading} from "../../store/data";
 import {MainService} from "../../main.service";
 import {DateTime} from "luxon";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
@@ -34,7 +34,6 @@ export class CounterComponent implements OnInit{
   eventName: string = '';
   categoryId: number | undefined;
   notyfication: boolean = false;
-  loading: boolean = false;
   loadingFinish: boolean = false;
   addingFinish: boolean = false;
   uniqueEventsName: string[] = [];
@@ -71,7 +70,7 @@ export class CounterComponent implements OnInit{
 
   addCategory() {
     this.togleNotyfication();
-    this.loading = true;
+    loading.set(true);
     this.addItemsService.createCategory(this.newCategory)
       .pipe(
 
@@ -85,19 +84,19 @@ export class CounterComponent implements OnInit{
         if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
         alert('Błąd dodawania kategorii\n' + error.error.message);
         this.togleNotyfication();
-        this.loading = false;
+        loading.set(false);
       });
 
   }
   addObject() {
-    this.loading = true;
+    loading.set(true);
     if (!this.categoryId) {
-      this.loading = false;
+      loading.set(false);
       alert('Wybierz kategorię')
       return;
     }
     if (!this.eventName) {
-      this.loading = false;
+      loading.set(false);
       alert('Wpisz nazwę obiektu')
       return;
     }
@@ -108,7 +107,7 @@ export class CounterComponent implements OnInit{
       .subscribe({
         next: response => {
           console.log(response);
-          this.loading = false;
+          loading.set(false);
           this.addingFinish = true;
           this.addingCompleted()
           categoryIdStore.set(this.categoryId);
@@ -116,7 +115,7 @@ export class CounterComponent implements OnInit{
         error: error => {
           console.log(error);
           alert('Błąd dodawania obiektu\n' + error.error.message);
-          this.loading = false;
+          loading.set(false);
           this.eventName = '';
         }
 
@@ -159,7 +158,7 @@ export class CounterComponent implements OnInit{
           this.categoryId = newAddedCategory.id;
         }
         this.newCategory = '';
-        this.loading = false;
+        loading.set(false);
         this.loadingFinish = true;
         this.loadingCompleted();
         return of(newAddedCategory); // Zwróć obserwabłę, która emituje nowAddedCategory
@@ -180,9 +179,9 @@ export class CounterComponent implements OnInit{
 // wczytuje liste obiektów z ostatnich 2 tygodni
   // i wyciagam tylko unique nazwy obiektów
   loadObjectName() {
-    this.loading = true;
+    loading.set(true);
     if(this.categoryId === undefined) {
-      this.loading = false;
+      loading.set(false);
       return;
          }
 
@@ -192,7 +191,7 @@ export class CounterComponent implements OnInit{
           console.log(response);
           this.newObjectsList = response.objects;
           this.getUniqueEventsName();
-          this.loading = false;
+          loading.set(false);
           return this.newObjectsList;
         })
       )
@@ -218,4 +217,6 @@ export class CounterComponent implements OnInit{
   changeEventName(event: string) {
     this.eventName = event;
   }
+
+  protected readonly loading = loading;
 }

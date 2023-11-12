@@ -1,1 +1,13 @@
-<p>options works!</p>
+<div class="optionsWrapper">
+  <div class="optionSection">
+    <div>
+      Delete Category
+    </div>
+    <select class="form-select-sm mt-1 customSelectDecoration" [(ngModel)]="categoryId" (click)="removeCategory()">
+      <option *ngFor="let item of categoriesList" [value]="item.id">{{item.category_name}}</option>
+    </select>
+    <div class="customButtonGrey">
+      Delete
+    </div>
+  </div>
+</div>

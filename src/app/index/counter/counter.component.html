@@ -15,10 +15,10 @@
                  class="form-control customSelectDecoration"
                  placeholder="New Item"
                  [(ngModel)]="newCategory"
-                 [disabled]="loading">
+                 [disabled]="loading()">
           <button type="submit"
                   class="mx-1"
-                  [disabled]="loading"
+                  [disabled]="loading()"
                   (click)="addCategory()"
           >Add
           </button>
@@ -81,7 +81,7 @@
                  name="itemName"
                  placeholder="Enter Event Name"
                  [(ngModel)]="eventName"
-                 [disabled]="loading">
+                 [disabled]="loading()">
           <label for="itemValue" class="fitObject">Value {{eventValue}}</label>
           <input type="range"
                  id="itemValue"
@@ -92,7 +92,7 @@
                  class="customRange"
                  [(ngModel)]="eventValue"
                  [value]="eventValue"
-                 [disabled]="loading">
+                 [disabled]="loading()">
           <button type="submit"
                   class=""
                   [disabled]="loading"

@@ -1,0 +1,19 @@
+.optionsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-top: var(--borderColorMain) solid 1px;
+  margin-top: 5px;
+}
+.optionSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+  font-size: 0.9rem;
+  max-height: 50px;
+  border-bottom: var(--borderColorMain) solid 1px;
+}
