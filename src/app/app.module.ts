@@ -13,6 +13,7 @@ import { StatisticComponent } from './index/statistic/statistic.component';
 import { NotyficationComponent } from './index/counter/notyfication/notyfication.component';
 import { WeekhistoryComponent } from './index/history/weekhistory/weekhistory.component';
 import {RemoveObjectComponent} from "./index/history/remove-object/remove-object.component";
+import {OptionsComponent} from "./index/counter/notyfication/options/options.component";
 
 @NgModule({
   declarations: [
@@ -25,14 +26,15 @@ import {RemoveObjectComponent} from "./index/history/remove-object/remove-object
     NotyficationComponent,
     WeekhistoryComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    RemoveObjectComponent
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        RemoveObjectComponent,
+        OptionsComponent
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

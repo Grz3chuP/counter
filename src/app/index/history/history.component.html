@@ -42,10 +42,14 @@
 >
   {{singleDay.object_name}}
   <div class="removeButton" (click)="openAndCloseRemovePanel(singleDay.id)">
-    X
+    <img src="assets/hamburger20.png" alt="remove">
 
   </div>
-  <app-remove-object *ngIf="openRemovePanels[singleDay.id]"/>
+  <app-remove-object [objectId]="singleDay.id"
+                     [removingAnimation]="removingAnimation"
+                     (newObjectValueOutput)="changeValueUpdateAndCloseRemovePanel($event)"
+                     (objectIdOutput)="deleteAndCloseRemovePanel($event)"
+                     *ngIf="openRemovePanels[singleDay.id]"/>
  <div class="dayValue">
    <div>{{singleDay.value}}</div></div>
 </div>
@@ -61,4 +65,4 @@
 
 
 </div>
-<app-remove-object/>
+

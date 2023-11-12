@@ -57,4 +57,22 @@ return this.http.post(`${environment.server_url}/api/create/item`,  data, { head
   }
 
 
+  removeObject(objectId: number) {
+    return this.http.post(`${environment.server_url}/api/remove/object/${objectId}`,  objectId, { headers: this.getHeader(), withCredentials: true });
+
+  }
+  deleteCategory(categoryId: number) {
+    return this.http.post(`${environment.server_url}/api/remove/category/${categoryId}`, { headers: this.getHeader(), withCredentials: true });
+  }
+
+
+  changeObjectValue(objectId: number, newValue: number) {
+    const data = {
+      id: objectId,
+      value: newValue
+      };
+    return this.http.post(`${environment.server_url}/api/change/object/${objectId}`, data, { headers: this.getHeader(), withCredentials: true });
+  }
+
+
 }

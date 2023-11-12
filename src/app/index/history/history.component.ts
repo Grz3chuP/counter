@@ -22,6 +22,8 @@ export class HistoryComponent implements OnInit{
   actualShownWeekStart: string = '';
   actualShownWeekEnd: string = '';
   openRemovePanels: {[key: number]: boolean} = {};
+  removePanelOpen: boolean = false;
+  removingAnimation: boolean = false;
   constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
   }
@@ -120,15 +122,43 @@ export class HistoryComponent implements OnInit{
     return dayTotalValue;
   }
   openAndCloseRemovePanel(id: number) {
-    if(!this.openRemovePanels[id]) {
-      this.openRemovePanels[id] = false;
+    if(! this.removePanelOpen ) {
+      this.removePanelOpen = !this.removePanelOpen;
+
+      this.openRemovePanels[id] = !this.openRemovePanels[id];
+    } else if(this.removePanelOpen && this.openRemovePanels[id]) {
+      this.removingAnimation = true;
+      setTimeout(() => {
+        this.removingAnimation = false;
+        this.removePanelOpen = !this.removePanelOpen;
+        this.openRemovePanels[id] = !this.openRemovePanels[id];
+      }, 200);
+
     }
-    this.openRemovePanels[id] = !this.openRemovePanels[id];
   }
   protected readonly DateTime = DateTime;
   protected readonly animation = animation;
   protected readonly useAnimation = useAnimation;
 
+
+  changeValueUpdateAndCloseRemovePanel(event: {id: number, value: number}) {
+
+    this.newObjectsList = this.newObjectsList.map(object => {
+      if (object.id === event.id) {
+        object.value = event.value;
+      }
+      return object;
+    })
+    console.log('dziala' + event.id + ' ' + event.value);
+    this.openAndCloseRemovePanel(event.id);
+
+  }
+
+  deleteAndCloseRemovePanel(id: number) {
+    this.newObjectsList = this.newObjectsList.filter(object => object.id !== id);
+    this.openAndCloseRemovePanel(id);
+
+  }
 }
 
 

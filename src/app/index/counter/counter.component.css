@@ -129,3 +129,7 @@ align-items: center;
 .selectCategoryFirst {
   font-size: 0.8rem;
 }
+.optionsPanel {
+  width: fit-content;
+  padding: 2px 5px;
+}

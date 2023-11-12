@@ -169,3 +169,13 @@ border: rgba(108, 106, 106, 0.5) solid 1px;
   box-shadow: rgba(58, 57, 57, 0.3) 1px 1px 2px 1px;
   font-size: 0.6rem;
 }
+.removeButton img {
+  width: 11px;
+  height: 11px;
+  opacity: 0.9;
+}
+.removeButton:hover {
+  transform: scale(1.1);
+
+
+}
