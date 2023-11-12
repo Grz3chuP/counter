@@ -3,11 +3,15 @@
     <div>
       Delete Category
     </div>
-    <select class="form-select-sm mt-1 customSelectDecoration" [(ngModel)]="categoryId" (click)="removeCategory()">
-      <option *ngFor="let item of categoriesList" [value]="item.id">{{item.category_name}}</option>
+    <select class="form-select-sm mt-1 customSelectDecoration"
+            [(ngModel)]="categoryId"
+            [disabled]="loading()"
+            (click)="removeCategory()">
+      <option *ngFor="let item of categoriesList"
+              [value]="item.id">{{item.category_name}}</option>
     </select>
-    <div class="customButtonGrey">
+    <button class="customButtonGrey" [disabled]="loading()">
       Delete
-    </div>
+    </button>
   </div>
 </div>

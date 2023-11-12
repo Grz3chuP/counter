@@ -28,7 +28,10 @@
         <div class=" fitObject m-1">
           Category
         </div>
-        <select class="form-select mt-1 customSelectDecoration" [(ngModel)]="categoryId" (change)="loadObjectName()">
+        <select class="form-select mt-1 customSelectDecoration"
+                [(ngModel)]="categoryId"
+                [disabled]="loading()"
+                (change)="loadObjectName()">
           <option *ngFor="let item of categories" [value]="item.id">{{item.category_name}}</option>
         </select>
 

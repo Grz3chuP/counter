@@ -46,27 +46,6 @@ export class CounterComponent implements OnInit{
   ngOnInit(): void {
     this.getCategoryList();
   }
-  // addCategory() {
-  //   this.addItemsService.createCategory(this.newCategory)
-  //     .subscribe({
-  //         next:  response => {
-  //          this.getCategoryList()
-  //          const newAddedCategory = this.categories.find(category => category.category_name === this.newCategory);
-  //          console.log(newAddedCategory);
-  //           if (newAddedCategory) {
-  //             this.categoryId = newAddedCategory.id;
-  //           }
-  //           this.newCategory = '';
-  //
-  //
-  //         },
-  //         error: error => {
-  //           console.log(error);
-  //           alert('Błąd dodawania kategorii\n' + error.error.message);
-  //         }
-  //       }
-  //     );
-  // }
 
   addCategory() {
     this.togleNotyfication();
@@ -106,14 +85,12 @@ export class CounterComponent implements OnInit{
       .pipe()
       .subscribe({
         next: response => {
-          console.log(response);
           loading.set(false);
           this.addingFinish = true;
           this.addingCompleted()
           categoryIdStore.set(this.categoryId);
         },
         error: error => {
-          console.log(error);
           alert('Błąd dodawania obiektu\n' + error.error.message);
           loading.set(false);
           this.eventName = '';

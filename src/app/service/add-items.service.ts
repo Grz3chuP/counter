@@ -62,7 +62,7 @@ return this.http.post(`${environment.server_url}/api/create/item`,  data, { head
 
   }
   deleteCategory(categoryId: number) {
-    return this.http.post(`${environment.server_url}/api/remove/category/${categoryId}`, { headers: this.getHeader(), withCredentials: true });
+    return this.http.post(`${environment.server_url}/api/remove/category/${categoryId}`,{} ,{ headers: this.getHeader(), withCredentials: true });
   }
 
 

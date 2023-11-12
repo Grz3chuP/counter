@@ -148,12 +148,12 @@ export class HistoryComponent implements OnInit{
         object.value = event.value;
       }
       return object;
-    })
+    });
+
     console.log('dziala' + event.id + ' ' + event.value);
     this.openAndCloseRemovePanel(event.id);
 
   }
-
   deleteAndCloseRemovePanel(id: number) {
     this.newObjectsList = this.newObjectsList.filter(object => object.id !== id);
     this.openAndCloseRemovePanel(id);
