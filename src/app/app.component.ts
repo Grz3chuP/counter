@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
               },
               error: (d: any) => {
                 console.error(d);
+                if (this.serwis.checkIfUnauthenticatedAndRedirectIfSo(d)) return;
               }
             });
 
