@@ -86,7 +86,12 @@
                  placeholder="Enter Event Name"
                  [(ngModel)]="eventName"
                  [disabled]="loading()">
-          <label for="itemValue" class="fitObject">Value {{eventValue}}</label>
+          <label for="itemValue" class="fitObject d-flex text-center align-items-center">
+            <div>Value</div>
+            <div class="addButton" (click)="plusAndMinusValue(-1)" >-</div>
+            <input class="addEventValueInput" type="number" name="number" [(ngModel)]="eventValue">
+            <div class="addButton" (click)="plusAndMinusValue(1)">+</div>
+          </label>
           <input type="range"
                  id="itemValue"
                  name="itemValue"

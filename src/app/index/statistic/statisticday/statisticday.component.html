@@ -6,7 +6,7 @@
     <div class="singleDayEvents"
          *ngFor="let event of uniqNameListforDay; let i = index"
          [ngStyle]="{'background-color': pastelColors[i],
-          'width': (getNumberOfEventsForDay(event) / objectListForDay.length * 100) + '%'}">
+                     'width': (getNumberOfEventsForDay(event) / objectListForDay.length * 100) + '%'}">
        </div>
   </div>
 </div>

@@ -233,4 +233,11 @@ export class CounterComponent implements OnInit{
     this.categories = this.categories.filter(category => category.id !== idToRemove);
     this.getCategoryList();
   }
+
+  plusAndMinusValue(number: number) {
+    if(this.eventValue === 0 && number === -1) {
+      return;
+    }
+    this.eventValue += number;
+  }
 }
