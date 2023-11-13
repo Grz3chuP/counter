@@ -176,6 +176,7 @@ export class CounterComponent implements OnInit{
 
         error: error => {
           if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
+          loading.set(false);
           console.log(error);
         }
       });
