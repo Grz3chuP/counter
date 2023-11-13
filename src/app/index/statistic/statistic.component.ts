@@ -1,5 +1,5 @@
 import {Component, computed, OnInit} from '@angular/core';
-import {categoryList} from "../../store/data";
+import {categoryIdStore, categoryList} from "../../store/data";
 import {AddItemsService} from "../../service/add-items.service";
 import {switchMap} from "rxjs";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
@@ -28,29 +28,21 @@ constructor(private addItemsService: AddItemsService, private mainService: MainS
 
 }
  ngOnInit(): void {
-this.getCategoryList();
+   if (categoryList().length === 0) {
+     this.getCategoryList();
 
-}
-// getUniqObjectsName() {
-//   const uniqObjectsName: string[] = [];
-//   this.addItemService.getObjectsList(this.categoryId!)
-//     .subscribe((response) => {
-//       response.objects.forEach((object) => {
-//         if (!uniqObjectsName.includes(object.name)) {
-//           uniqObjectsName.push(object.name);
-//         }
-//       });
-//     });
-//   return uniqObjectsName;
-//
-//
-// }
-
+   } else {
+     this.categoryId = categoryIdStore()!;
+     this.showHistoryPrevious(categoryIdStore()!);
+   }
+ }
   private getCategoryList() {
     this.addItemsService.getCategoryList()
       .subscribe({
         next: (response: RootObject) => {
           categoryList.set(response.categories);
+          this.categoryId = this.categoryList()[this.getLastAddedCategory()!].id;
+          this.showHistoryPrevious(this.categoryId!);
         },
         error: error => {
           console.log(error);
@@ -60,9 +52,6 @@ this.getCategoryList();
       });
 
   }
-
-
-
 
   showHistoryPrevious(categoryId: number) {
     this.loading = true;
@@ -94,6 +83,7 @@ this.getCategoryList();
           console.log(response);
           this.newObjectsList = response.objects;
           this.newObjectNameList = this.newObjectsList
+          this.checkIfNewObjectChanged();
           this.loading = false;
           return this.newObjectsList;
         })
@@ -132,6 +122,14 @@ this.getCategoryList();
     const dayList = this.getDayOfWeekList(day);
     const dayTotalValue = dayList.reduce((sum, object) => sum + object.value, 0);
     return dayTotalValue;
+  }
+
+  getLastAddedCategory() {
+    if (this.categoryList().length === 0) {
+      return;
+    }
+
+    return this.categoryList().length - 1;
   }
   protected readonly event = event;
 }

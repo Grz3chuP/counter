@@ -113,7 +113,7 @@ border: rgba(108, 106, 106, 0.5) solid 1px;
   width: fit-content;
 }
 .dayTotalEvents:before {
-  content: 'Total: ';
+  content: 'Events: ';
   font-size: 0.6rem;
   border-radius: 5px;
   padding-left: 2px;

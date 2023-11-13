@@ -30,10 +30,14 @@ export class HistoryComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getCategoryList()
+    if(categoryList().length === 0) {
+      this.getCategoryList()
+    }
+
     this.actualShownWeekStart = this.getMonday().toFormat('dd.MM.yyyy');
     this.actualShownWeekEnd = this.endOfWeek().toFormat('dd.MM.yyyy');
     this.showHistory(categoryIdStore()!);
+
     if (categoryIdStore() === undefined) {
     this.loading = false;
     }
@@ -48,6 +52,8 @@ export class HistoryComponent implements OnInit{
       .subscribe({
         next: (response: RootObject) => {
              categoryList.set(response.categories);
+          this.categoryId = this.categoryList()[this.getLastAddedCategory()!].id;
+          this.showHistory(this.categoryId);
         },
         error: error => {
           console.log(error);
@@ -176,6 +182,13 @@ export class HistoryComponent implements OnInit{
     this.newObjectsList = this.newObjectsList.filter(object => object.id !== id);
     this.openAndCloseRemovePanel(id);
 
+  }
+  getLastAddedCategory() {
+    if (this.categoryList().length === 0) {
+      return;
+    }
+
+    return this.categoryList().length - 1;
   }
 }
 

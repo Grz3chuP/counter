@@ -115,6 +115,7 @@ export class CounterComponent implements OnInit{
           console.log(response);
           this.categories = response.categories;
           this.categoryId = this.categories[this.getLastAddedCategory()!].id;
+          categoryIdStore.set(this.categoryId);
           console.log('tutaj'  +this.categoryId);
           categoryList.set(this.categories);
           if(this.categories.length === 0) {
@@ -183,6 +184,7 @@ export class CounterComponent implements OnInit{
           this.newObjectsList = response.objects;
           this.getUniqueEventsName();
           loading.set(false);
+          categoryIdStore.set(this.categoryId);
           return this.newObjectsList;
         })
       )
