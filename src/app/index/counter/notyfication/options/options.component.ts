@@ -4,7 +4,7 @@ import {Category} from "../../../../interfaces/CategoriesInterfaces";
 import {AddItemsService} from "../../../../service/add-items.service";
 import {MainService} from "../../../../main.service";
 import {FormsModule} from "@angular/forms";
-import {loading} from "../../../../store/data";
+import {isClicked, loading, manageButtonClicked} from "../../../../store/data";
 
 @Component({
   selector: 'app-options',
@@ -21,6 +21,7 @@ export class OptionsComponent {
 
   }
   removeCategory() {
+
     if(!this.categoryId){
       return;
     }
@@ -39,4 +40,5 @@ export class OptionsComponent {
   }
 
   protected readonly loading = loading;
+    protected readonly isClicked = isClicked;
 }

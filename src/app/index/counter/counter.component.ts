@@ -2,7 +2,7 @@ import {Component, OnInit, signal} from '@angular/core';
 import {AddItemsService} from "../../service/add-items.service";
 import {Category, RootObject} from "../../interfaces/CategoriesInterfaces";
 import {of, switchMap, tap, timeout} from "rxjs";
-import {categoryIdStore, categoryList, loading} from "../../store/data";
+import {categoryIdStore, categoryList, isClicked, loading, manageButtonClicked} from "../../store/data";
 import {MainService} from "../../main.service";
 import {DateTime} from "luxon";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
@@ -37,6 +37,7 @@ export class CounterComponent implements OnInit{
   loadingFinish: boolean = false;
   addingFinish: boolean = false;
   uniqueEventsName: string[] = [];
+  options: boolean = false;
 
   constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
@@ -45,9 +46,11 @@ export class CounterComponent implements OnInit{
 
   ngOnInit(): void {
     this.getCategoryList();
+
   }
 
   addCategory() {
+
     this.togleNotyfication();
     loading.set(true);
     this.addItemsService.createCategory(this.newCategory)
@@ -68,7 +71,9 @@ export class CounterComponent implements OnInit{
 
   }
   addObject() {
+
     loading.set(true);
+
     if (!this.categoryId) {
       loading.set(false);
       alert('Wybierz kategorię')
@@ -106,6 +111,8 @@ export class CounterComponent implements OnInit{
         next: (response: RootObject) => {
           console.log(response);
           this.categories = response.categories;
+          this.categoryId = this.categories[this.getLastAddedCategory()!].id;
+          console.log('tutaj'  +this.categoryId);
           categoryList.set(this.categories);
         },
         error: error => {
@@ -196,5 +203,19 @@ export class CounterComponent implements OnInit{
     this.eventName = event;
   }
 
+  getLastAddedCategory() {
+    if (this.categories.length === 0) {
+      return;
+    }
+
+    return this.categories.length - 1;
+  }
   protected readonly loading = loading;
+
+  optionsOnOff() {
+    this.options = !this.options;
+    manageButtonClicked()
+  }
+
+  protected readonly isClicked = isClicked;
 }

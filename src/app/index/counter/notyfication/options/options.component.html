@@ -6,11 +6,14 @@
     <select class="form-select-sm mt-1 customSelectDecoration"
             [(ngModel)]="categoryId"
             [disabled]="loading()"
-            (click)="removeCategory()">
+            >
       <option *ngFor="let item of categoriesList"
               [value]="item.id">{{item.category_name}}</option>
     </select>
-    <button class="customButtonGrey" [disabled]="loading()">
+    <button class="customButtonGrey"
+            (click)="removeCategory()"
+            [disabled]="loading()"
+    >
       Delete
     </button>
   </div>

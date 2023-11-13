@@ -21,12 +21,13 @@ export class StatisticComponent implements OnInit{
   newObjectNameList: ObjectInterface[] = [];
   weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 constructor(private addItemService: AddItemsService) {
+  this.dateFrom = DateTime.now().toFormat('yyyy-MM-dd');
+  this.dateTo = DateTime.now().toFormat('yyyy-MM-dd');
+
 }
  ngOnInit(): void {
-   this.dateFrom = DateTime.now().toLocaleString();
-   console.log(this.dateFrom);
-   this.dateTo = DateTime.now().toISO();
-   console.log(this.dateTo);
+
+
 }
 // getUniqObjectsName() {
 //   const uniqObjectsName: string[] = [];

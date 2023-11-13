@@ -18,6 +18,7 @@
                  [disabled]="loading()">
           <button type="submit"
                   class="mx-1"
+
                   [disabled]="loading()"
                   (click)="addCategory()"
           >Add
@@ -98,6 +99,7 @@
                  [disabled]="loading()">
           <button type="submit"
                   class=""
+
                   [disabled]="loading()"
                   (click)="addObject()">Add
           </button>
@@ -110,10 +112,12 @@
 
         </form>
         <div class="optionsPanelWrapper">
-          <div class="optionsPanel customButtonGrey">
+          <div class="optionsPanel "
+               [ngClass]="{'customButtonGreyClicked': isClicked(), 'customButtonGrey': !isClicked()}"
+               (click)="optionsOnOff()">
             Options
           </div>
-          <app-options [categoriesList]="categories"/>
+          <app-options *ngIf="options" [categoriesList]="categories"/>
         </div>
       </div>
     </div>
