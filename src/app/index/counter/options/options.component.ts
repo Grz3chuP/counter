@@ -34,7 +34,7 @@ export class OptionsComponent {
         next: response => {
           console.log(response);
           loading.set(false);
-          this.categoryIdToRemove.emit(this.categoryId!);
+          this.categoryIdToRemove.emit(this.categoryId);
          alert('Category removed');
         },
         error: error => {

@@ -47,6 +47,7 @@ export class CounterComponent implements OnInit{
   ngOnInit(): void {
     this.getCategoryList();
 
+
   }
 
   addCategory() {
@@ -60,6 +61,7 @@ export class CounterComponent implements OnInit{
       )
       .subscribe(() => {
         this.togleNotyfication();
+        this.loadObjectName();
 
       }, (error: any) => {
         console.error('Błąd dodawania kategorii', error);
@@ -84,7 +86,7 @@ export class CounterComponent implements OnInit{
       alert('Wpisz nazwę obiektu')
       return;
     }
-
+      console.log('adding event' + this.eventName + ' ' + this.eventValue + ' ' + this.categoryId);
     this.addItemsService.createItem(this.eventName, this.eventValue, this.categoryId)
 
       .pipe()
@@ -94,6 +96,7 @@ export class CounterComponent implements OnInit{
           this.addingFinish = true;
           this.addingCompleted()
           categoryIdStore.set(this.categoryId);
+          this.loadObjectName();
         },
         error: error => {
           alert('Błąd dodawania obiektu\n' + error.error.message);
@@ -114,6 +117,10 @@ export class CounterComponent implements OnInit{
           this.categoryId = this.categories[this.getLastAddedCategory()!].id;
           console.log('tutaj'  +this.categoryId);
           categoryList.set(this.categories);
+          if(this.categories.length === 0) {
+            return;
+          }
+          this.loadObjectName();
         },
         error: error => {
           console.log(error);
@@ -220,7 +227,8 @@ export class CounterComponent implements OnInit{
   protected readonly isClicked = isClicked;
 
   removeCategoryFromList(idToRemove: number) {
-    this.categories = this.categories.filter(category => category.id !== idToRemove);
 
+    this.categories = this.categories.filter(category => category.id !== idToRemove);
+    this.getCategoryList();
   }
 }
