@@ -108,7 +108,7 @@
                               [addingFinish]="addingFinish"
             ></app-notyfication>
           </div>
-          Adding {{eventName}} with value {{eventValue}} to category {{categoryId}}
+          Adding {{eventName}} with value {{eventValue}}
 
         </form>
         <div class="optionsPanelWrapper">
@@ -117,7 +117,9 @@
                (click)="optionsOnOff()">
             Options
           </div>
-          <app-options *ngIf="options" [categoriesList]="categories"/>
+          <app-options
+                      (categoryIdToRemove)="removeCategoryFromList($event)" )
+                      *ngIf="options" [categoriesList]="categories"/>
         </div>
       </div>
     </div>

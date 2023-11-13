@@ -6,6 +6,7 @@ import {DateTime} from "luxon";
 import {switchMap} from "rxjs";
 import {animation, useAnimation} from "@angular/animations";
 import {MainService} from "../../main.service";
+import {RootObject} from "../../interfaces/CategoriesInterfaces";
 
 @Component({
   selector: 'app-history',
@@ -29,6 +30,7 @@ export class HistoryComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.getCategoryList()
     this.actualShownWeekStart = this.getMonday().toFormat('dd.MM.yyyy');
     this.actualShownWeekEnd = this.endOfWeek().toFormat('dd.MM.yyyy');
     this.showHistory(categoryIdStore()!);
@@ -41,6 +43,20 @@ export class HistoryComponent implements OnInit{
   }
 
   protected readonly categoryList = categoryList;
+  private getCategoryList() {
+    this.addItemsService.getCategoryList()
+      .subscribe({
+        next: (response: RootObject) => {
+             categoryList.set(response.categories);
+        },
+        error: error => {
+          console.log(error);
+          if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return; //specjalnie zmieszczone w 1 linijce żeby nie było widać bardzo
+          alert('Błąd pobierania listy kategorii\n' + error.error.message);
+        }
+      });
+
+  }
 
   showHistory(categoryId: number ) {
     this.loading = true;

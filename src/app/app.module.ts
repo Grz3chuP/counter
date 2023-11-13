@@ -13,7 +13,7 @@ import { StatisticComponent } from './index/statistic/statistic.component';
 import { NotyficationComponent } from './index/counter/notyfication/notyfication.component';
 import { WeekhistoryComponent } from './index/history/weekhistory/weekhistory.component';
 import {RemoveObjectComponent} from "./index/history/remove-object/remove-object.component";
-import {OptionsComponent} from "./index/counter/notyfication/options/options.component";
+import {OptionsComponent} from "./index/counter/options/options.component";
 
 @NgModule({
   declarations: [

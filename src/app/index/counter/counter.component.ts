@@ -218,4 +218,9 @@ export class CounterComponent implements OnInit{
   }
 
   protected readonly isClicked = isClicked;
+
+  removeCategoryFromList(idToRemove: number) {
+    this.categories = this.categories.filter(category => category.id !== idToRemove);
+
+  }
 }
