@@ -54,6 +54,8 @@ export class HistoryComponent implements OnInit{
              categoryList.set(response.categories);
           this.categoryId = this.categoryList()[this.getLastAddedCategory()!].id;
           this.showHistory(this.categoryId);
+          categoryIdStore.set(this.categoryId);
+
         },
         error: error => {
           console.log(error);
