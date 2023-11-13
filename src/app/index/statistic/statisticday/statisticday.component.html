@@ -1,10 +1,12 @@
 <div class="singleDayStatisticWrapper">
   <div class="singleDayStatistic">
-    <div class="singleDayValue">
+    <div class="singleDayValue" >
 
     </div>
-    <div class="singleDayEvents">
-
-    </div>
+    <div class="singleDayEvents"
+         *ngFor="let event of uniqNameListforDay; let i = index"
+         [ngStyle]="{'background-color': pastelColors[i],
+          'width': (getNumberOfEventsForDay(event) / objectListForDay.length * 100) + '%'}">
+       </div>
   </div>
 </div>

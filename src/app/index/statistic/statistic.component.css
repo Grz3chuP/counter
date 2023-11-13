@@ -99,7 +99,7 @@ input.datePicker {
 .dayTotal {
   position: absolute;
   left: 5px;
-  bottom: 3px;
+  bottom: 8px;
   font-size: 0.7rem;
   font-weight: 500;
   padding-right: 2px;
@@ -114,7 +114,7 @@ input.datePicker {
 .dayTotalEvents {
   position: absolute;
   left: 47px;
-  bottom: 3px;
+  bottom: 8px;
   font-size: 0.7rem;
   font-weight: 500;
   padding-right: 2px;
@@ -195,7 +195,9 @@ input.datePicker {
   text-wrap: nowrap;
 }
 .singleDayComponent {
-  height: 5px;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 .dayTitle {
   font-size: 0.8rem;

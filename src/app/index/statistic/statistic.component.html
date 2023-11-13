@@ -64,11 +64,13 @@
     <div class="dayTotalEvents">{{getDayOfWeekList(i).length}}</div>
     <div class="dayContent"
          *ngFor="let singleDay of getUniqDayOfWeekList(i); let ii = index"
+
          [ngStyle]="{
 
       'animation-duration': '0.7s',
       'animation-delay': (ii +1) * 100 + 'ms',
       'visibility': 'hidden',
+      'background-color': pastelColors[ii],
      }"
     >
       <div>
@@ -83,11 +85,11 @@
     </div>
   </div>
     <div class="w-100 singleDayComponent ">
-      <app-statisticday/>
+      <app-statisticday
+      *ngIf="getDayOfWeekList(i).length > 0"
+      [objectListForDay]="getDayOfWeekList(i)"
+      [uniqNameListforDay]="getUniqDayOfWeekList(i)"/>
     </div>
   </div>
 
-
-
-{{newObjectsList.length}}{{uniqObjectsName.length}}{{uniqName}}
 </div>

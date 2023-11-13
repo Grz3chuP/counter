@@ -22,6 +22,19 @@ export class StatisticComponent implements OnInit{
   newObjectsList: ObjectInterface[] = [];
   newObjectNameList: ObjectInterface[] = [];
   weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+  pastelColors: string[] = [
+    '#FFD1DC', // Light Pink
+    '#FFECB3', // Light Yellow
+    '#B2DFDB', // Light Teal
+    '#E1BEE7', // Light Purple
+    '#C8E6C9', // Light Green
+    '#FFCCBC', // Light Peach
+    '#B3E0FF', // Light Blue
+    '#F0F4C3', // Light Lime
+    '#D7CCC8', // Light Brown
+    '#FFD180', // Light Orange
+  ];
 constructor(private addItemsService: AddItemsService, private mainService: MainService) {
   this.dateFrom = DateTime.now().toFormat('yyyy-MM-dd');
   this.dateTo = DateTime.now().toFormat('yyyy-MM-dd');
