@@ -118,8 +118,9 @@
             Options
           </div>
           <app-options
-                      (categoryIdToRemove)="removeCategoryFromList($event)" )
-                      *ngIf="options" [categoriesList]="categories"/>
+                      (categoryIdToRemove)="removeCategoryFromList($event)"
+                      *ngIf="options"
+                      [categoriesList]="categories"/>
         </div>
       </div>
     </div>
