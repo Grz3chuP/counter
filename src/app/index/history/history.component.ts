@@ -57,6 +57,7 @@ export class HistoryComponent implements OnInit{
 
         error: error => {
           if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
+          this.loading = false;
           console.log(error);
         }
       });
@@ -84,6 +85,7 @@ export class HistoryComponent implements OnInit{
 
         error: error => {
           if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
+          this.loading = false;
           console.log(error);
         }
       });
