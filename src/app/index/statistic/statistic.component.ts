@@ -1,7 +1,7 @@
 import {Component, computed, OnInit} from '@angular/core';
 import {categoryIdStore, categoryList} from "../../store/data";
 import {AddItemsService} from "../../service/add-items.service";
-import {switchMap} from "rxjs";
+import {reduce, switchMap} from "rxjs";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
 import {DateTime} from "luxon";
 import {RootObject} from "../../interfaces/CategoriesInterfaces";
@@ -117,7 +117,13 @@ constructor(private addItemsService: AddItemsService, private mainService: MainS
       return createdAtDate.weekday  === day + 1 });
     return dayList;
   }
-
+  getUniqDayOfWeekList(day: number) {
+    const dayList = this.newObjectNameList.filter(object =>    {
+      const createdAtDate =  DateTime.fromISO(object.created_at)
+      return createdAtDate.weekday  === day + 1 });
+    const uniqDayList = [...new Set(dayList.map((object) => object.object_name))]
+    return uniqDayList;
+  }
   getDayTotalValue(day: number) {
     const dayList = this.getDayOfWeekList(day);
     const dayTotalValue = dayList.reduce((sum, object) => sum + object.value, 0);
@@ -132,4 +138,16 @@ constructor(private addItemsService: AddItemsService, private mainService: MainS
     return this.categoryList().length - 1;
   }
   protected readonly event = event;
+
+
+  singleDaySumOfValue(dayOfWeekList: ObjectInterface[], singleDay: string) {
+    const singleDaySumOfValue = dayOfWeekList.filter(object => object.object_name === singleDay)
+      .reduce((sum, object) => sum + object.value, 0);
+    return singleDaySumOfValue;
+  }
+  singleDaySumOfEvents(dayOfWeekList: ObjectInterface[], singleDay: string) {
+    const singleDaySumOfValue = dayOfWeekList.filter(object => object.object_name === singleDay)
+      .length;
+    return singleDaySumOfValue;
+  }
 }

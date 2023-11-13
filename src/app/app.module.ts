@@ -14,6 +14,7 @@ import { NotyficationComponent } from './index/counter/notyfication/notyfication
 import { WeekhistoryComponent } from './index/history/weekhistory/weekhistory.component';
 import {RemoveObjectComponent} from "./index/history/remove-object/remove-object.component";
 import {OptionsComponent} from "./index/counter/options/options.component";
+import {StatisticdayComponent} from "./index/statistic/statisticday/statisticday.component";
 
 @NgModule({
   declarations: [
@@ -26,15 +27,16 @@ import {OptionsComponent} from "./index/counter/options/options.component";
     NotyficationComponent,
     WeekhistoryComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        RemoveObjectComponent,
-        OptionsComponent
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    RemoveObjectComponent,
+    OptionsComponent,
+    StatisticdayComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

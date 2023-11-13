@@ -4,16 +4,17 @@
     <select class="form-select-sm m-1 p-1 customSelectDecoration"
             [(ngModel)]="categoryId"
             [disabled]="loading">
-      <option  *ngFor="let item of categoryList() "
-               [value]="item.id">{{item.category_name}}</option>
+      <option *ngFor="let item of categoryList() "
+              [value]="item.id">{{item.category_name}}</option>
     </select>
     <button class="showHistoryButton customButtonGrey"
             (click)="showHistoryPrevious(categoryId!)"
             [disabled]="loading"
-    >Pick</button>
+    >Pick
+    </button>
 
   </div>
-<!--  //date Picker-->
+  <!--  //date Picker-->
   <div class="datePickerWrapper">
     <input type="date"
            class="datePicker"
@@ -31,23 +32,24 @@
 
   <div class="selectObjectPanel">
     <div class="wrapper">
-    <div class="selectObjectPanelTitle px-2">Event</div>
-    <select class="form-select-sm m-1 p-1"
-            [(ngModel)]="uniqName"
-            [disabled]="loading">
-      <option  *ngFor="let event of checkIfNewObjectChanged()"
-               [value]="event">{{event}}</option>
-    </select>
+      <div class="selectObjectPanelTitle px-2">Event</div>
+      <select class="form-select-sm m-1 p-1"
+              [(ngModel)]="uniqName"
+              [disabled]="loading">
+        <option *ngFor="let event of checkIfNewObjectChanged()"
+                [value]="event">{{event}}</option>
+      </select>
       <button class="showHistoryButton customButtonGrey"
               (click)="getEventListForDay()"
               [disabled]="loading || !uniqName"
-      >Show</button>
+      >Show
+      </button>
     </div>
-   <div class="eventListWrapper">
-     <div class="eventList" *ngFor="let event of checkIfNewObjectChanged()">
-       {{event}}
-     </div>
-   </div>
+    <div class="eventListWrapper">
+      <div class="eventList" *ngFor="let event of checkIfNewObjectChanged()">
+        {{event}}
+      </div>
+    </div>
 
   </div>
   <div class="dayWrapper d-flex"
@@ -56,11 +58,12 @@
       'animation-delay': (i +1) * 70 + 'ms',
       'visibility': 'hidden',  }"
        *ngFor="let day of weekdays; let i = index">
+    <div class="d-flex w-100">
     <div class="dayTitle">{{day}}</div>
     <div class="dayTotal">{{getDayTotalValue(i)}}</div>
     <div class="dayTotalEvents">{{getDayOfWeekList(i).length}}</div>
     <div class="dayContent"
-         *ngFor="let singleDay of getDayOfWeekList(i); let ii = index"
+         *ngFor="let singleDay of getUniqDayOfWeekList(i); let ii = index"
          [ngStyle]="{
 
       'animation-duration': '0.7s',
@@ -68,13 +71,23 @@
       'visibility': 'hidden',
      }"
     >
-      {{singleDay.object_name}}
-      <div class="dayValue">
-        <div>{{singleDay.value}}</div></div>
+      <div>
+        {{singleDay}}
+        <div class="dayValue">
+          <div>{{singleDaySumOfValue(getDayOfWeekList(i) ,singleDay)}}</div>
+        </div>
+        <div class="dayEvent">
+          <div>{{singleDaySumOfEvents(getDayOfWeekList(i) ,singleDay)}}</div>
+        </div>
+      </div>
     </div>
-
-
-
   </div>
+    <div class="w-100 singleDayComponent ">
+      <app-statisticday/>
+    </div>
+  </div>
+
+
+
 {{newObjectsList.length}}{{uniqObjectsName.length}}{{uniqName}}
 </div>
