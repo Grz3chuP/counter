@@ -4,6 +4,7 @@
          *ngFor="let event of uniqNameListforDay; let i = index"
          [ngStyle]="{'background-color': pastelColors[i],
                      'width': (getTotalValueForDay(event) / getTotalValueForAllEvents() * 100) + '%'}">
+      <div>{{(getTotalValueForDay(event) / getTotalValueForAllEvents() * 100).toFixed(1)}}</div>
     </div>
   </div>
   <div class="singleDayStatistic">
@@ -12,6 +13,7 @@
          *ngFor="let event of uniqNameListforDay; let i = index"
          [ngStyle]="{'background-color': pastelColors[i],
                      'width': (getNumberOfEventsForDay(event) / objectListForDay.length * 100) + '%'}">
+      <div>{{(getNumberOfEventsForDay(event) / objectListForDay.length * 100).toFixed(1)}}</div>
        </div>
   </div>
 

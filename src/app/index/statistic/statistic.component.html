@@ -57,15 +57,19 @@
         {{event}}
       </div>
     </div>
-
+  <div class="totalOfDatePick">
+    <div class="totalValueOfDatePick d-flex gap-1">Total Value: <div class="fw-bold">{{totalValueForAllEvents()}}</div></div>
+    <div class="totalEventOfDatePick d-flex gap-1">Total Events: <div class="fw-bold">{{totalEventsNumberForAllEvents()}}</div></div>
   </div>
+  </div>
+
   <div class="dayWrapper d-flex"
        [ngStyle]="{
       'animation-duration': '0.6s',
       'animation-delay': (i +1) * 70 + 'ms',
       'visibility': 'hidden',  }"
        *ngFor="let day of weekdays; let i = index">
-    <div class="d-flex w-100">
+    <div class="overflow-hidden overflow-x-auto d-flex w-100">
       <div class="dayTitle">{{day}}</div>
       <div class="dayTotal">{{getDayTotalValue(i)}}</div>
       <div class="dayTotalEvents">{{getDayOfWeekList(i).length}}</div>
@@ -101,10 +105,11 @@
     <div class="w-100 singleDayComponent d-flex" *ngIf="uniqName > ''">
       <div class="statisticBars"></div>
       <app-statisticevent class="flex-grow-1"
-                        *ngIf="getDayOfWeekList(i).length > 0"
-                        [objectListForDay]="getDayOfWeekList(i)"
-                        [uniqNameListforDay]="getUniqDayOfWeekList(i)"
-                        [uniqName]="uniqName"/>
+                          *ngIf="getDayOfWeekList(i).length > 0"
+                          [objectListForDay]="getDayOfWeekList(i)"
+                          [uniqNameListforDay]="getUniqDayOfWeekList(i)"
+                          [fullObjectList]="newObjectsList"
+                          [uniqName]="uniqName"/>
     </div>
   </div>
 

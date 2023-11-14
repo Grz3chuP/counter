@@ -8,6 +8,10 @@ export const isClicked = signal <boolean>(false)
 
 export const categoryIdStore = signal <number | undefined>(undefined)
 
+export let totalValueForAllEvents = signal <number>(0)
+
+export let totalEventsNumberForAllEvents = signal <number>(0)
+
 export function manageButtonClicked() {
   isClicked.set(true)
   setTimeout(() => {

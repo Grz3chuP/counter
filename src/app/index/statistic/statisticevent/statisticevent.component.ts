@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ObjectInterface} from "../../../interfaces/ObjectsInterface";
+import {totalEventsNumberForAllEvents, totalValueForAllEvents} from "../../../store/data";
 
 @Component({
   selector: 'app-statisticevent',
@@ -12,8 +13,11 @@ import {ObjectInterface} from "../../../interfaces/ObjectsInterface";
 export class StatisticeventComponent implements OnInit{
   @Input() uniqNameListforDay: string[] = [];
   @Input() objectListForDay: ObjectInterface[] = [];
+  @Input() fullObjectList: ObjectInterface[] = [];
   @Input() uniqName: string = '';
   newFilterListByName: ObjectInterface[] = [];
+  totalValueFullList: number = 0;
+  totalEventsNumberFullList: number = 0;
   pastelColors: string[] = [
     '#FFD1DC', // Light Pink
     '#FFECB3', // Light Yellow
@@ -40,11 +44,12 @@ export class StatisticeventComponent implements OnInit{
   ];
 
   ngOnInit() {
+    this.totalValueFullList = this.getTotalValueForAllEventsInFullListWithThatName();
+    this.totalEventsNumberFullList = this.getTotalEventsNumberInFullList();
 
   }
 
   getNumberOfEventsForDay(name: string) {
-
     this.newFilterListByName = this.objectListForDay.filter((object: ObjectInterface) => object.object_name === name);
     return this.newFilterListByName.length;
   }
@@ -53,12 +58,27 @@ export class StatisticeventComponent implements OnInit{
     let totalValue = 0;
     this.newFilterListByName.forEach((object: ObjectInterface) => totalValue += object.value);
 
-    return totalValue;
+    return totalValue ;
   }
 
   getTotalValueForAllEvents() {
     return this.objectListForDay.reduce((totalValue: number , object: ObjectInterface)=> totalValue + object.value, 0);
 
   }
+
+  getTotalValueForAllEventsInFullListWithThatName() {
+
+  // const value = this.fullObjectList.reduce((totalValue: number , object: ObjectInterface)=> totalValue + object.value, 0);
+    const value = this.fullObjectList.filter((object: ObjectInterface) => object.object_name === this.uniqName).reduce((totalValue: number , object: ObjectInterface)=> totalValue + object.value, 0);
+
+    return value;
+  }
+  getTotalEventsNumberInFullList() {
+   const event =  this.fullObjectList.filter((object: ObjectInterface) => object.object_name === this.uniqName).length;
+
+       return event;
+  }
+
+
 
 }

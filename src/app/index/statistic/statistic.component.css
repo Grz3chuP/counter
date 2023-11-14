@@ -207,7 +207,7 @@ input.datePicker {
   text-wrap: nowrap;
 }
 .singleDayComponent {
-  height: 30px;
+  height: 35px;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -226,3 +226,16 @@ input.datePicker {
   height: 20px;
 
 }
+.totalOfDatePick {
+  font-size: 0.9rem;
+  display: flex;
+
+  gap: 5px;
+  align-items: flex-start;
+  width: fit-content;
+  margin-bottom: 2px;
+  border-radius: 5px ;
+  padding: 3px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
