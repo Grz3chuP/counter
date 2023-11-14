@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,7 @@ import { WeekhistoryComponent } from './index/history/weekhistory/weekhistory.co
 import {RemoveObjectComponent} from "./index/history/remove-object/remove-object.component";
 import {OptionsComponent} from "./index/counter/options/options.component";
 import {StatisticdayComponent} from "./index/statistic/statisticday/statisticday.component";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,13 @@ import {StatisticdayComponent} from "./index/statistic/statisticday/statisticday
     BrowserAnimationsModule,
     RemoveObjectComponent,
     OptionsComponent,
-    StatisticdayComponent
+    StatisticdayComponent,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
