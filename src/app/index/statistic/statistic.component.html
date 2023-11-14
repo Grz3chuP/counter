@@ -35,9 +35,24 @@
         <option *ngFor="let event of checkIfNewObjectChanged()"
                 [value]="event">{{event}}</option>
       </select>
+      <div (click)="showHistoryPrevious(categoryId!)"
+           class="customButtonGrey px-1 py-0"
+      >All Events</div>
       </div>
-    <div class="eventListWrapper">
-      <div class="eventList" *ngFor="let event of checkIfNewObjectChanged()">
+        <div class="eventListWrapper ">
+      <div class="eventList "
+           [ngClass]="{
+                  'customButtonGreyActive': event === uniqName,
+                  'customButtonGrey': event !== uniqName,
+                 }"
+           [ngStyle]="{
+
+                 'animation-duration': '0.7s',
+                 'animation-delay': (i +1) * 100 + 'ms',
+                 'visibility': 'hidden',
+                 }"
+           (click)="changeEventName(event)"
+           *ngFor="let event of checkIfNewObjectChanged();let i=index">
         {{event}}
       </div>
     </div>

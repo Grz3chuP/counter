@@ -168,4 +168,9 @@ constructor(private addItemsService: AddItemsService, private mainService: MainS
       .length;
     return singleDaySumOfValue;
   }
+
+  changeEventName(name: string) {
+    this.uniqName = name;
+    this.getEventListForDay()
+  }
 }
