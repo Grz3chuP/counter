@@ -90,6 +90,11 @@ constructor(private addItemsService: AddItemsService, private mainService: MainS
     const newDateTo = new Date(this.dateTo);
     newDateTo.setHours(23, 59, 59, 59).toString();
     const formattedDateTo = newDateTo.toISOString();
+    if (formattedDateFrom > formattedDateTo) {
+      alert('Date from can not be later than date to');
+      this.loading = false;
+      return;
+    }
     this.addItemsService.getObjectsList(categoryId, formattedDateFrom, formattedDateTo)
       .pipe(
         switchMap((response: RootObjectInterface) => {
