@@ -47,4 +47,17 @@ newFilterListByName: ObjectInterface[] = [];
     this.newFilterListByName = this.objectListForDay.filter((object: ObjectInterface) => object.object_name === name);
     return this.newFilterListByName.length;
     }
+  getTotalValueForDay(name: string) {
+    this.newFilterListByName = this.objectListForDay.filter((object: ObjectInterface) => object.object_name === name);
+    let totalValue = 0;
+    this.newFilterListByName.forEach((object: ObjectInterface) => totalValue += object.value);
+
+    return totalValue;
+  }
+
+  getTotalValueForAllEvents() {
+   return this.objectListForDay.reduce((totalValue: number , object: ObjectInterface)=> totalValue + object.value, 0);
+
+  }
+
   }

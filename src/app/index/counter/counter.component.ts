@@ -1,7 +1,7 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AddItemsService} from "../../service/add-items.service";
 import {Category, RootObject} from "../../interfaces/CategoriesInterfaces";
-import {of, switchMap, tap, timeout} from "rxjs";
+import {of, switchMap, tap} from "rxjs";
 import {categoryIdStore, categoryList, isClicked, loading, manageButtonClicked} from "../../store/data";
 import {MainService} from "../../main.service";
 import {DateTime} from "luxon";

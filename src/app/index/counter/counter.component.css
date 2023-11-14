@@ -82,7 +82,7 @@ button {
   overflow-x: auto;
 }
 .uniqEventsNames {
- text-wrap: nowrap;
+  text-wrap: nowrap;
   margin-bottom: 2px;
   padding: 0 5px;
   animation:  fadeInDay;

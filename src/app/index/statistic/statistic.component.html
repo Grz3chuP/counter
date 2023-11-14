@@ -84,8 +84,9 @@
       </div>
     </div>
   </div>
-    <div class="w-100 singleDayComponent ">
-      <app-statisticday
+    <div class="w-100 singleDayComponent d-flex ">
+      <div class="statisticBars"></div>
+      <app-statisticday class="flex-grow-1"
       *ngIf="getDayOfWeekList(i).length > 0"
       [objectListForDay]="getDayOfWeekList(i)"
       [uniqNameListforDay]="getUniqDayOfWeekList(i)"/>

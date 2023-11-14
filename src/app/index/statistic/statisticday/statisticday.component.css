@@ -1,16 +1,26 @@
 .singleDayStatisticWrapper  {
   width: 100%;
-  height: 100%;
+
 
 }
 .singleDayStatistic {
   width: 100%;
-  height: 100%;
+  height: 10px;
   display: flex;
+  border-radius: 5px;
+  overflow: hidden;
+  border: var(--borderColorMain) solid 1px;
+  margin: 3px 0 3px 0;
 
   background-color: #890d00;
 }
 .singleDayEvents {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  height: 10px;
+}
+.singleDayValue {
   display: flex;
   flex-direction: row;
   position: relative;
