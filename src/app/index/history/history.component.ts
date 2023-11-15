@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {categoryIdStore, categoryList} from "../../store/data";
+import {actualDateForThisWeekMonday, categoryIdStore, categoryList} from "../../store/data";
 import {AddItemsService} from "../../service/add-items.service";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
 import {DateTime} from "luxon";
@@ -18,13 +18,15 @@ export class HistoryComponent implements OnInit{
   selectedObject: string = '';
   categoryId: any;
   newObjectsList: ObjectInterface[] = [];
-  weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  weekdays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   loading: boolean = false;
   actualShownWeekStart: string = '';
   actualShownWeekEnd: string = '';
   openRemovePanels: {[key: number]: boolean} = {};
   removePanelOpen: boolean = false;
   removingAnimation: boolean = false;
+  addPanelOpen: boolean[] = [];
+  actualShownWeekStartNoFormat: any;
   constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
   }
@@ -44,6 +46,7 @@ export class HistoryComponent implements OnInit{
     else {
       this.categoryId = categoryIdStore()!;
     }
+    this.showHistoryPrevious(this.categoryId, 0)
   }
 
   protected readonly categoryList = categoryList;
@@ -71,7 +74,6 @@ export class HistoryComponent implements OnInit{
     this.addItemsService.getObjectsList(categoryId, this.getMonday(), this.endOfWeek())
       .pipe(
         switchMap((response: RootObjectInterface) => {
-          console.log(response);
           this.newObjectsList = response.objects;
           this.loading = false;
           return this.newObjectsList;
@@ -87,19 +89,20 @@ export class HistoryComponent implements OnInit{
       });
   }
   showHistoryChildrenAccess(week:number) {
-    console.log(week);
     this.showHistoryPrevious(this.categoryId, week)
   }
   showHistoryPrevious(categoryId: number, minusWeek:number) {
     const newMonday = this.getMonday().minus({weeks: minusWeek});
     const newEndOfWeek = this.endOfWeek().minus({weeks: minusWeek});
+    this.actualShownWeekStartNoFormat = newMonday;
+    actualDateForThisWeekMonday.set(newMonday);
     this.actualShownWeekStart = newMonday.toFormat('dd.MM.yyyy');
+
     this.actualShownWeekEnd = newEndOfWeek.toFormat('dd.MM.yyyy');
     this.loading = true;
     this.addItemsService.getObjectsList(categoryId, newMonday, newEndOfWeek)
       .pipe(
         switchMap((response: RootObjectInterface) => {
-          console.log(response);
           this.newObjectsList = response.objects;
           this.loading = false;
           return this.newObjectsList;
@@ -119,10 +122,13 @@ export class HistoryComponent implements OnInit{
 
   getMonday() {
     const now = DateTime.now()
-    console.log(now.weekday);
-    const day = now.weekday;
-    const lastMonday =  (9 - day ) % 7;
-    const monday = now.minus({days: lastMonday}).set({hour: 0, minute: 0, second: 0, millisecond: 0});
+    console.log('tutaj' + now);
+    const day = now.day;
+    const curentDay = now.weekday;
+    console.log('tutaj tez' + curentDay)
+    console.log('tutaj tez' + day)
+    const lastMonday =  day - curentDay ;
+    const monday = now.minus({days: curentDay - 1}).set({hour: 0, minute: 0, second: 0, millisecond: 0});
     return monday;
 
   }
@@ -167,6 +173,7 @@ export class HistoryComponent implements OnInit{
   protected readonly useAnimation = useAnimation;
 
 
+
   changeValueUpdateAndCloseRemovePanel(event: {id: number, value: number}) {
 
     this.newObjectsList = this.newObjectsList.map(object => {
@@ -191,6 +198,11 @@ export class HistoryComponent implements OnInit{
     }
 
     return this.categoryList().length - 1;
+  }
+
+  openAddPanel(dayIndex: number) {
+    this.addPanelOpen[dayIndex] = !this.addPanelOpen[dayIndex]
+
   }
 }
 

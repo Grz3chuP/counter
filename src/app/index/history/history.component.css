@@ -22,7 +22,7 @@
 }
 
 .dayWrapper {
-border: rgba(108, 106, 106, 0.5) solid 1px;
+  border: rgba(108, 106, 106, 0.5) solid 1px;
   position: relative;
   border-radius: 5px;
   padding: 0 5px;

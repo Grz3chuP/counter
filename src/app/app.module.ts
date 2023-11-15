@@ -16,6 +16,7 @@ import {RemoveObjectComponent} from "./index/history/remove-object/remove-object
 import {OptionsComponent} from "./index/counter/options/options.component";
 import {StatisticdayComponent} from "./index/statistic/statisticday/statisticday.component";
 import {StatisticeventComponent} from "./index/statistic/statisticevent/statisticevent.component";
+import {AddHistoryComponent} from "./index/history/add-history/add-history.component";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {StatisticeventComponent} from "./index/statistic/statisticevent/statisti
         RemoveObjectComponent,
         OptionsComponent,
         StatisticdayComponent,
-        StatisticeventComponent
+        StatisticeventComponent,
+        AddHistoryComponent
     ],
   providers: [],
   bootstrap: [AppComponent]

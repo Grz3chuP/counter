@@ -1,0 +1,11 @@
+.addPanelWrapper {
+  height: 34px;
+  width: 100%;
+  left: 0;
+  background-color: burlywood;
+  position: absolute;
+  z-index: 1;
+}
+.addPanel {
+  display: flex;
+}

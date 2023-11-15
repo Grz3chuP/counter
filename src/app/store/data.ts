@@ -12,6 +12,9 @@ export let totalValueForAllEvents = signal <number>(0)
 
 export let totalEventsNumberForAllEvents = signal <number>(0)
 
+
+export let actualDateForThisWeekMonday = signal <any>('')
+
 export function manageButtonClicked() {
   isClicked.set(true)
   setTimeout(() => {
