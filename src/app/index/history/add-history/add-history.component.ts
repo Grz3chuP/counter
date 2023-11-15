@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DateTime } from 'luxon';
 import {actualDateForThisWeekMonday} from "../../../store/data";
+import {ObjectInterface} from "../../../interfaces/ObjectsInterface";
 
 @Component({
   selector: 'app-add-history',
@@ -15,6 +16,8 @@ export class AddHistoryComponent implements OnInit{
 @Input() actualWeekEnd: string = '';
 actualDateForDay: string = '';
 @Input() actualIndexForDate: number = 0;
+@Input() actualObjectsForDay: ObjectInterface[] = [];
+
 
 ngOnInit(): void {
   console.log(this.actualWeekStart);
@@ -23,5 +26,8 @@ ngOnInit(): void {
 whatDayIsIt() {
 
 }
-
+  // getUniqueEventsName() {
+  //   this.uniqueEventsName =  [...new Set(this.newObjectsList.map((object) => object.object_name))];
+  //   console.log(this.uniqueEventsName);
+  // }
 }

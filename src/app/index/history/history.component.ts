@@ -127,7 +127,6 @@ export class HistoryComponent implements OnInit{
     const curentDay = now.weekday;
     console.log('tutaj tez' + curentDay)
     console.log('tutaj tez' + day)
-    const lastMonday =  day - curentDay ;
     const monday = now.minus({days: curentDay - 1}).set({hour: 0, minute: 0, second: 0, millisecond: 0});
     return monday;
 
