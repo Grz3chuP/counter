@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {actualDateForThisWeekMonday, categoryIdStore, categoryList, currentAddPanelId} from "../../store/data";
+import {actualDateForThisWeekMonday, categoryIdStore, categoryList, currentAddPanelId, loading} from "../../store/data";
 import {AddItemsService} from "../../service/add-items.service";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
 import {DateTime} from "luxon";
@@ -19,7 +19,6 @@ export class HistoryComponent implements OnInit{
   categoryId: any;
   newObjectsList: ObjectInterface[] = [];
   weekdays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  loading: boolean = false;
   actualShownWeekStart: string = '';
   actualShownWeekEnd: string = '';
   openRemovePanels: {[key: number]: boolean} = {};
@@ -42,7 +41,7 @@ export class HistoryComponent implements OnInit{
     this.showHistory(categoryIdStore()!);
 
     if (categoryIdStore() === undefined) {
-    this.loading = false;
+    loading.set(false);
     }
     else {
       this.categoryId = categoryIdStore()!;
@@ -72,12 +71,12 @@ export class HistoryComponent implements OnInit{
   }
 
   showHistory(categoryId: number ) {
-    this.loading = true;
+    loading.set(true);
     this.addItemsService.getObjectsList(categoryId, this.getMonday(), this.endOfWeek())
       .pipe(
         switchMap((response: RootObjectInterface) => {
           this.newObjectsList = response.objects;
-          this.loading = false;
+          loading.set(false);
           return this.newObjectsList;
         })
       )
@@ -85,7 +84,7 @@ export class HistoryComponent implements OnInit{
 
         error: error => {
           if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
-          this.loading = false;
+          loading.set(false);
           console.log(error);
         }
       });
@@ -104,12 +103,12 @@ export class HistoryComponent implements OnInit{
     this.actualShownWeekStart = newMonday.toFormat('dd.MM.yyyy');
 
     this.actualShownWeekEnd = newEndOfWeek.toFormat('dd.MM.yyyy');
-    this.loading = true;
+    loading.set(true);
     this.addItemsService.getObjectsList(categoryId, newMonday, newEndOfWeek)
       .pipe(
         switchMap((response: RootObjectInterface) => {
           this.newObjectsList = response.objects;
-          this.loading = false;
+          loading.set(false);
           return this.newObjectsList;
         })
       )
@@ -117,7 +116,7 @@ export class HistoryComponent implements OnInit{
 
         error: error => {
           if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
-          this.loading = false;
+          loading.set(false);
           console.log(error);
         }
       });
@@ -228,6 +227,8 @@ export class HistoryComponent implements OnInit{
     currentAddPanelId.set({id: dayIndex, open: true});
     this.showHistoryPrevious(this.categoryId, this.minusWeek)
   }
+
+  protected readonly loading = loading;
 }
 
 

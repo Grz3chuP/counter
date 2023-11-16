@@ -4,7 +4,7 @@
     <select class="form-select-sm m-1 p-1 customSelectDecoration"
             [(ngModel)]="categoryId"
             (change)="showHistory(categoryId)"
-            [disabled]="loading">
+            [disabled]="loading()">
       <option *ngFor="let item of categoryList() "
               [value]="item.id">{{item.category_name}}</option>
     </select>
@@ -29,8 +29,9 @@
       'animation-delay': (i +1) * 70 + 'ms',
       'visibility': 'hidden',  }"
          *ngFor="let day of weekdays; let i = index">
-      <div class="dayTitle">{{day}}
-      <div class="customButtonGrey px-1 py-0" (click)="openAndCloseAddPanel(i)">+</div>
+      <div class="dayTitle">
+        <div class="name">{{day}}</div>
+      <div class="customButtonGrey px-1 py-0 mx-2" (click)="openAndCloseAddPanel(i)">+</div>
       </div>
       <div class="dayTotal">{{getDayTotalValue(i)}}</div>
       <div class="dayTotalEvents">{{getDayOfWeekList(i).length}}</div>

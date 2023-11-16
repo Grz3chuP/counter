@@ -28,7 +28,7 @@
   padding: 0 5px;
   margin-bottom: 5px;
   background-color: rgba(255, 255, 255, 0.6);
-  min-height: 36px;
+  min-height: 38px;
   animation:  fadeInDay;
   animation-fill-mode: forwards;
   transition: 0.5s;
@@ -51,7 +51,9 @@
   min-width: 74px;
 
 }
-
+.name {
+  width: 20px
+}
 .dayContent {
   position: relative;
   width: fit-content;
