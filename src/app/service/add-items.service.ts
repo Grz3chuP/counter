@@ -21,6 +21,12 @@ export class AddItemsService {
 const data = { name: eventName, value: eventValue, category: category };
 return this.http.post(`${environment.server_url}/api/create/item`,  data, { headers: this.getHeader(), withCredentials: true });
   }
+
+  createItemWithDate(eventName: string, eventValue: number, category: number, date: string) {
+    const data = { name: eventName, value: eventValue, category: category, date: date };
+    return this.http.post(`${environment.server_url}/api/create/item/date`,  data, { headers: this.getHeader(), withCredentials: true });
+  }
+
   getCategoryList(): Observable<RootObject> {
     return this.http.get<RootObject>(`${environment.server_url}/api/get/categories`, {withCredentials: true });
   }

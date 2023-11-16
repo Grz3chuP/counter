@@ -27,6 +27,7 @@ export class HistoryComponent implements OnInit{
   removingAnimation: boolean = false;
   addPanelOpen: boolean[] = [];
   actualShownWeekStartNoFormat: any;
+  minusWeek: number = 0;
   constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
   }
@@ -45,8 +46,9 @@ export class HistoryComponent implements OnInit{
     }
     else {
       this.categoryId = categoryIdStore()!;
+
     }
-    this.showHistoryPrevious(this.categoryId, 0)
+    // this.showHistoryPrevious(this.categoryId, 0)
   }
 
   protected readonly categoryList = categoryList;
@@ -92,6 +94,7 @@ export class HistoryComponent implements OnInit{
     this.showHistoryPrevious(this.categoryId, week)
   }
   showHistoryPrevious(categoryId: number, minusWeek:number) {
+    this.minusWeek = minusWeek;
     const newMonday = this.getMonday().minus({weeks: minusWeek});
     const newEndOfWeek = this.endOfWeek().minus({weeks: minusWeek});
     this.actualShownWeekStartNoFormat = newMonday;
@@ -201,7 +204,7 @@ export class HistoryComponent implements OnInit{
 
   openAddPanel(dayIndex: number) {
     this.addPanelOpen[dayIndex] = !this.addPanelOpen[dayIndex]
-
+    this.showHistoryPrevious(this.categoryId, this.minusWeek)
   }
 }
 

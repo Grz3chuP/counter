@@ -4,15 +4,27 @@
     date: {{actualDateForDay}}
   </div>
   <div class="addPanelEvent">
-    <select>
-      <option ></option>
+    <div class="label">Event</div>
+    <select [(ngModel)]="eventToAdd">
+      <option *ngFor="let event of uniqueEventsName">{{event}}</option>
     </select>
   </div>
   <div class="addPanelValue">
-    <input type="number" name="value" value="">
+    <div class="label valueLabel">Value</div>
+    <input type="number"
+           name="value"
+            [(ngModel)]="valueToAdd"
+           value="">
   </div>
   <div class="addPanelSubmit">
-    <button type="button" name="button">Add</button>
+    <button type="button"
+            class="customButtonGrey"
+            (click)="addEventToDataBase()"
+            name="button">Add</button>
+    <button type="button"
+            class="customButtonGrey"
+            (click)="closeAddPanel()"
+            name="button">Close</button>
   </div>
 </div>
 </div>

@@ -38,10 +38,13 @@
        <div class="">
          <app-add-history
                   *ngIf="addPanelOpen[i]"
+                  [panelId]="i"
                   [actualWeekStart]="actualShownWeekStartNoFormat"
+                  [categoryId]="categoryId"
                   [actualWeekEnd]="actualShownWeekEnd"
                   [actualIndexForDate]="i"
                   [actualObjectsForDay]="getDayOfWeekList(i)"
+                  (closeAddPanelId)="openAddPanel($event)"
          />
        </div>
        <div class="dayContent"
