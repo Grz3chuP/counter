@@ -23,6 +23,7 @@ export class AddHistoryComponent implements OnInit{
 @Input() actualObjectsForDay: ObjectInterface[] = [];
 @Input() panelId: number = 0;
 @Output() closeAddPanelId = new EventEmitter <number>();
+@Output() closePanel = new EventEmitter <number>();
 newObjectsList: ObjectInterface[] = [];
   uniqueEventsName: string[] = [];
 
@@ -90,6 +91,6 @@ addEventToDataBase() {
       });
   }
   closeAddPanel() {
-    this.closeAddPanelId.emit(this.panelId);
+    this.closePanel.emit(this.panelId);
   }
 }

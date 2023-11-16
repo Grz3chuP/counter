@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {actualDateForThisWeekMonday, categoryIdStore, categoryList} from "../../store/data";
+import {actualDateForThisWeekMonday, categoryIdStore, categoryList, currentAddPanelId} from "../../store/data";
 import {AddItemsService} from "../../service/add-items.service";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
 import {DateTime} from "luxon";
@@ -92,6 +92,8 @@ export class HistoryComponent implements OnInit{
   }
   showHistoryChildrenAccess(week:number) {
     this.showHistoryPrevious(this.categoryId, week)
+    this.addPanelOpen[currentAddPanelId().id] = false;
+    currentAddPanelId.set({id: 0, open: false});
   }
   showHistoryPrevious(categoryId: number, minusWeek:number) {
     this.minusWeek = minusWeek;
@@ -158,7 +160,6 @@ export class HistoryComponent implements OnInit{
   openAndCloseRemovePanel(id: number) {
     if(! this.removePanelOpen ) {
       this.removePanelOpen = !this.removePanelOpen;
-
       this.openRemovePanels[id] = !this.openRemovePanels[id];
     } else if(this.removePanelOpen && this.openRemovePanels[id]) {
       this.removingAnimation = true;
@@ -201,9 +202,30 @@ export class HistoryComponent implements OnInit{
 
     return this.categoryList().length - 1;
   }
+  openAndCloseAddPanel(dayIndex: number) {
+    if(currentAddPanelId().open && currentAddPanelId().id === dayIndex) {
+      this.addPanelOpen[dayIndex] = false;
+      currentAddPanelId.set({id: dayIndex, open: false});
+      return;
+    } if (currentAddPanelId().open && currentAddPanelId().id !== dayIndex) {
+      return;
+    }
+    this.addPanelOpen[dayIndex] = !this.addPanelOpen[dayIndex];
+    currentAddPanelId.set({id: dayIndex, open: true});
+
+  }
 
   openAddPanel(dayIndex: number) {
-    this.addPanelOpen[dayIndex] = !this.addPanelOpen[dayIndex]
+    if(currentAddPanelId().open && currentAddPanelId().id === dayIndex) {
+      this.addPanelOpen[dayIndex] = false;
+      currentAddPanelId.set({id: dayIndex, open: false});
+      this.showHistoryPrevious(this.categoryId, this.minusWeek)
+      return;
+    } if (currentAddPanelId().open && currentAddPanelId().id !== dayIndex) {
+      return;
+    }
+    this.addPanelOpen[dayIndex] = !this.addPanelOpen[dayIndex];
+    currentAddPanelId.set({id: dayIndex, open: true});
     this.showHistoryPrevious(this.categoryId, this.minusWeek)
   }
 }

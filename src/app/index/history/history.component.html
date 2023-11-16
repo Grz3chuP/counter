@@ -30,7 +30,7 @@
       'visibility': 'hidden',  }"
          *ngFor="let day of weekdays; let i = index">
       <div class="dayTitle">{{day}}
-      <div class="customButtonGrey px-1 py-0" (click)="openAddPanel(i)">+</div>
+      <div class="customButtonGrey px-1 py-0" (click)="openAndCloseAddPanel(i)">+</div>
       </div>
       <div class="dayTotal">{{getDayTotalValue(i)}}</div>
       <div class="dayTotalEvents">{{getDayOfWeekList(i).length}}</div>
@@ -45,6 +45,7 @@
                   [actualIndexForDate]="i"
                   [actualObjectsForDay]="getDayOfWeekList(i)"
                   (closeAddPanelId)="openAddPanel($event)"
+                  (closePanel)="openAndCloseAddPanel($event)"
          />
        </div>
        <div class="dayContent"
