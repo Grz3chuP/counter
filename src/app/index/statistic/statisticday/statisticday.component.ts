@@ -60,4 +60,5 @@ newFilterListByName: ObjectInterface[] = [];
 
   }
 
-  }
+  protected readonly Math = Math;
+}

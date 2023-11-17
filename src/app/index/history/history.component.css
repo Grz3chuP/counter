@@ -22,13 +22,13 @@
 }
 
 .dayWrapper {
-border: rgba(108, 106, 106, 0.5) solid 1px;
+  border: rgba(108, 106, 106, 0.5) solid 1px;
   position: relative;
   border-radius: 5px;
   padding: 0 5px;
   margin-bottom: 5px;
   background-color: rgba(255, 255, 255, 0.6);
-  min-height: 36px;
+  min-height: 38px;
   animation:  fadeInDay;
   animation-fill-mode: forwards;
   transition: 0.5s;
@@ -51,7 +51,9 @@ border: rgba(108, 106, 106, 0.5) solid 1px;
   min-width: 74px;
 
 }
-
+.name {
+  width: 20px
+}
 .dayContent {
   position: relative;
   width: fit-content;

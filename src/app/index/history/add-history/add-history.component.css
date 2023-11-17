@@ -1,0 +1,53 @@
+.addPanelWrapper {
+  height: 34px;
+  width: 100%;
+  left: 0;
+  background-color: burlywood;
+  position: absolute;
+  z-index: 1;
+}
+.addPanelDate {
+  margin: 0 3px;
+  font-size: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
+.addPanel {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.addPanelSubmit button {
+  padding: 0 5px;
+  font-size: 0.7rem;
+  margin-left: 4px;
+  background-color: rgba(108, 106, 106, 0.4);
+}
+.addPanelValue input {
+  position: relative;
+  bottom: 1px;
+  width: 35px;
+  height:18px;
+  font-size: 0.7rem;
+  padding: 0 2px;
+  margin: 0 0 0 4px;
+
+}
+
+.addPanelEvent {
+  font-size: 0.7rem;
+}
+.label {
+  font-size: 0.6rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  width: fit-content;
+  padding: 0 2px;
+}
+.valueLabel{
+  position: relative;
+  top: 3px;
+  left: 3px;
+}
+
+

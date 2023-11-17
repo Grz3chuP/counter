@@ -10,7 +10,7 @@
 .selectCategoryPanel {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 5px 5px 0 5px;
   gap: 5px;
   min-width: 300px;
@@ -64,9 +64,13 @@ input.datePicker {
 
 }
 .eventList {
-  padding: 0 3px;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.5);
+  text-wrap: nowrap;
+  margin-bottom: 2px;
+  padding: 0 5px;
+  animation:  fadeInDay;
+  animation-fill-mode: forwards;
+  overflow: hidden;
+  overflow-x: auto;
 }
 .dayWrapper {
    display: flex;
@@ -81,8 +85,7 @@ input.datePicker {
   animation:  fadeInDay;
   animation-fill-mode: forwards;
   transition: 0.5s;
-  overflow: hidden;
-  overflow-x: auto;
+
 
 
 }
@@ -204,7 +207,7 @@ input.datePicker {
   text-wrap: nowrap;
 }
 .singleDayComponent {
-  height: 30px;
+  height: 35px;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -223,3 +226,16 @@ input.datePicker {
   height: 20px;
 
 }
+.totalOfDatePick {
+  font-size: 0.9rem;
+  display: flex;
+
+  gap: 5px;
+  align-items: flex-start;
+  width: fit-content;
+  margin-bottom: 2px;
+  border-radius: 5px ;
+  padding: 3px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+

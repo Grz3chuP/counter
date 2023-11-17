@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {categoryIdStore, categoryList} from "../../store/data";
+import {actualDateForThisWeekMonday, categoryIdStore, categoryList, currentAddPanelId, loading} from "../../store/data";
 import {AddItemsService} from "../../service/add-items.service";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
 import {DateTime} from "luxon";
@@ -18,13 +18,15 @@ export class HistoryComponent implements OnInit{
   selectedObject: string = '';
   categoryId: any;
   newObjectsList: ObjectInterface[] = [];
-  weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  loading: boolean = false;
+  weekdays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   actualShownWeekStart: string = '';
   actualShownWeekEnd: string = '';
   openRemovePanels: {[key: number]: boolean} = {};
   removePanelOpen: boolean = false;
   removingAnimation: boolean = false;
+  addPanelOpen: boolean[] = [];
+  actualShownWeekStartNoFormat: any;
+  minusWeek: number = 0;
   constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
   }
@@ -39,11 +41,13 @@ export class HistoryComponent implements OnInit{
     this.showHistory(categoryIdStore()!);
 
     if (categoryIdStore() === undefined) {
-    this.loading = false;
+    loading.set(false);
     }
     else {
       this.categoryId = categoryIdStore()!;
+
     }
+    // this.showHistoryPrevious(this.categoryId, 0)
   }
 
   protected readonly categoryList = categoryList;
@@ -67,13 +71,12 @@ export class HistoryComponent implements OnInit{
   }
 
   showHistory(categoryId: number ) {
-    this.loading = true;
+    loading.set(true);
     this.addItemsService.getObjectsList(categoryId, this.getMonday(), this.endOfWeek())
       .pipe(
         switchMap((response: RootObjectInterface) => {
-          console.log(response);
           this.newObjectsList = response.objects;
-          this.loading = false;
+          loading.set(false);
           return this.newObjectsList;
         })
       )
@@ -81,27 +84,31 @@ export class HistoryComponent implements OnInit{
 
         error: error => {
           if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
-          this.loading = false;
+          loading.set(false);
           console.log(error);
         }
       });
   }
   showHistoryChildrenAccess(week:number) {
-    console.log(week);
     this.showHistoryPrevious(this.categoryId, week)
+    this.addPanelOpen[currentAddPanelId().id] = false;
+    currentAddPanelId.set({id: 0, open: false});
   }
   showHistoryPrevious(categoryId: number, minusWeek:number) {
+    this.minusWeek = minusWeek;
     const newMonday = this.getMonday().minus({weeks: minusWeek});
     const newEndOfWeek = this.endOfWeek().minus({weeks: minusWeek});
+    this.actualShownWeekStartNoFormat = newMonday;
+    actualDateForThisWeekMonday.set(newMonday);
     this.actualShownWeekStart = newMonday.toFormat('dd.MM.yyyy');
+
     this.actualShownWeekEnd = newEndOfWeek.toFormat('dd.MM.yyyy');
-    this.loading = true;
+    loading.set(true);
     this.addItemsService.getObjectsList(categoryId, newMonday, newEndOfWeek)
       .pipe(
         switchMap((response: RootObjectInterface) => {
-          console.log(response);
           this.newObjectsList = response.objects;
-          this.loading = false;
+          loading.set(false);
           return this.newObjectsList;
         })
       )
@@ -109,7 +116,7 @@ export class HistoryComponent implements OnInit{
 
         error: error => {
           if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
-          this.loading = false;
+          loading.set(false);
           console.log(error);
         }
       });
@@ -119,10 +126,12 @@ export class HistoryComponent implements OnInit{
 
   getMonday() {
     const now = DateTime.now()
-    console.log(now.weekday);
-    const day = now.weekday;
-    const lastMonday =  (9 - day ) % 7;
-    const monday = now.minus({days: lastMonday}).set({hour: 0, minute: 0, second: 0, millisecond: 0});
+    console.log('tutaj' + now);
+    const day = now.day;
+    const curentDay = now.weekday;
+    console.log('tutaj tez' + curentDay)
+    console.log('tutaj tez' + day)
+    const monday = now.minus({days: curentDay - 1}).set({hour: 0, minute: 0, second: 0, millisecond: 0});
     return monday;
 
   }
@@ -150,7 +159,6 @@ export class HistoryComponent implements OnInit{
   openAndCloseRemovePanel(id: number) {
     if(! this.removePanelOpen ) {
       this.removePanelOpen = !this.removePanelOpen;
-
       this.openRemovePanels[id] = !this.openRemovePanels[id];
     } else if(this.removePanelOpen && this.openRemovePanels[id]) {
       this.removingAnimation = true;
@@ -165,6 +173,7 @@ export class HistoryComponent implements OnInit{
   protected readonly DateTime = DateTime;
   protected readonly animation = animation;
   protected readonly useAnimation = useAnimation;
+
 
 
   changeValueUpdateAndCloseRemovePanel(event: {id: number, value: number}) {
@@ -192,6 +201,34 @@ export class HistoryComponent implements OnInit{
 
     return this.categoryList().length - 1;
   }
+  openAndCloseAddPanel(dayIndex: number) {
+    if(currentAddPanelId().open && currentAddPanelId().id === dayIndex) {
+      this.addPanelOpen[dayIndex] = false;
+      currentAddPanelId.set({id: dayIndex, open: false});
+      return;
+    } if (currentAddPanelId().open && currentAddPanelId().id !== dayIndex) {
+      return;
+    }
+    this.addPanelOpen[dayIndex] = !this.addPanelOpen[dayIndex];
+    currentAddPanelId.set({id: dayIndex, open: true});
+
+  }
+
+  openAddPanel(dayIndex: number) {
+    if(currentAddPanelId().open && currentAddPanelId().id === dayIndex) {
+      this.addPanelOpen[dayIndex] = false;
+      currentAddPanelId.set({id: dayIndex, open: false});
+      this.showHistoryPrevious(this.categoryId, this.minusWeek)
+      return;
+    } if (currentAddPanelId().open && currentAddPanelId().id !== dayIndex) {
+      return;
+    }
+    this.addPanelOpen[dayIndex] = !this.addPanelOpen[dayIndex];
+    currentAddPanelId.set({id: dayIndex, open: true});
+    this.showHistoryPrevious(this.categoryId, this.minusWeek)
+  }
+
+  protected readonly loading = loading;
 }
 
 

@@ -15,6 +15,8 @@ import { WeekhistoryComponent } from './index/history/weekhistory/weekhistory.co
 import {RemoveObjectComponent} from "./index/history/remove-object/remove-object.component";
 import {OptionsComponent} from "./index/counter/options/options.component";
 import {StatisticdayComponent} from "./index/statistic/statisticday/statisticday.component";
+import {StatisticeventComponent} from "./index/statistic/statisticevent/statisticevent.component";
+import {AddHistoryComponent} from "./index/history/add-history/add-history.component";
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
@@ -28,6 +30,18 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     NotyficationComponent,
     WeekhistoryComponent
   ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        RemoveObjectComponent,
+        OptionsComponent,
+        StatisticdayComponent,
+        StatisticeventComponent,
+        AddHistoryComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

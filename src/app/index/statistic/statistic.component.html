@@ -3,28 +3,23 @@
     <div class="selectObjectPanelHeaderTitle px-2">Category</div>
     <select class="form-select-sm m-1 p-1 customSelectDecoration"
             [(ngModel)]="categoryId"
+            (change)="showHistoryPrevious(categoryId!)"
             [disabled]="loading">
       <option *ngFor="let item of categoryList() "
               [value]="item.id">{{item.category_name}}</option>
     </select>
-    <button class="showHistoryButton customButtonGrey"
-            (click)="showHistoryPrevious(categoryId!)"
-            [disabled]="loading"
-    >Pick
-    </button>
-
   </div>
   <!--  //date Picker-->
   <div class="datePickerWrapper">
     <input type="date"
            class="datePicker"
            [disabled]="loading"
-
+           (change)="showHistoryPrevious(categoryId!)"
            [(ngModel)]="dateFrom">
 
     <input type="date"
            class="datePicker"
-
+           (change)="showHistoryPrevious(categoryId!)"
            [disabled]="loading"
            [(ngModel)]="dateTo">
 
@@ -34,62 +29,87 @@
     <div class="wrapper">
       <div class="selectObjectPanelTitle px-2">Event</div>
       <select class="form-select-sm m-1 p-1"
+              (change)="getEventListForDay()"
               [(ngModel)]="uniqName"
               [disabled]="loading">
         <option *ngFor="let event of checkIfNewObjectChanged()"
                 [value]="event">{{event}}</option>
       </select>
-      <button class="showHistoryButton customButtonGrey"
-              (click)="getEventListForDay()"
-              [disabled]="loading || !uniqName"
-      >Show
-      </button>
+      <div (click)="showHistoryPrevious(categoryId!); uniqName = ''"
+           class="customButtonGrey px-1 py-0"
+      >All Events
+      </div>
     </div>
-    <div class="eventListWrapper">
-      <div class="eventList" *ngFor="let event of checkIfNewObjectChanged()">
+    <div class="eventListWrapper ">
+      <div class="eventList "
+           [ngClass]="{
+                  'customButtonGreyActive': event === uniqName,
+                  'customButtonGrey': event !== uniqName,
+                 }"
+           [ngStyle]="{
+
+                 'animation-duration': '0.7s',
+                 'animation-delay': (i +1) * 100 + 'ms',
+                 'visibility': 'hidden',
+                 }"
+           (click)="changeEventName(event)"
+           *ngFor="let event of checkIfNewObjectChanged();let i=index">
         {{event}}
       </div>
     </div>
-
+  <div class="totalOfDatePick">
+    <div class="totalValueOfDatePick d-flex gap-1">Total Value: <div class="fw-bold">{{totalValueForAllEvents()}}</div></div>
+    <div class="totalEventOfDatePick d-flex gap-1">Total Events: <div class="fw-bold">{{totalEventsNumberForAllEvents()}}</div></div>
   </div>
+  </div>
+
   <div class="dayWrapper d-flex"
        [ngStyle]="{
       'animation-duration': '0.6s',
       'animation-delay': (i +1) * 70 + 'ms',
       'visibility': 'hidden',  }"
        *ngFor="let day of weekdays; let i = index">
-    <div class="d-flex w-100">
-    <div class="dayTitle">{{day}}</div>
-    <div class="dayTotal">{{getDayTotalValue(i)}}</div>
-    <div class="dayTotalEvents">{{getDayOfWeekList(i).length}}</div>
-    <div class="dayContent"
-         *ngFor="let singleDay of getUniqDayOfWeekList(i); let ii = index"
+    <div class="overflow-hidden overflow-x-auto d-flex w-100">
+      <div class="dayTitle">{{day}}</div>
+      <div class="dayTotal">{{getDayTotalValue(i)}}</div>
+      <div class="dayTotalEvents">{{getDayOfWeekList(i).length}}</div>
+      <div class="dayContent"
+           *ngFor="let singleDay of getUniqDayOfWeekList(i); let ii = index"
 
-         [ngStyle]="{
+           [ngStyle]="{
 
       'animation-duration': '0.7s',
       'animation-delay': (ii +1) * 100 + 'ms',
       'visibility': 'hidden',
       'background-color': pastelColors[ii],
      }"
-    >
-      <div>
-        {{singleDay}}
-        <div class="dayValue">
-          <div>{{singleDaySumOfValue(getDayOfWeekList(i) ,singleDay)}}</div>
-        </div>
-        <div class="dayEvent">
-          <div>{{singleDaySumOfEvents(getDayOfWeekList(i) ,singleDay)}}</div>
+      >
+        <div>
+          {{singleDay}}
+          <div class="dayValue">
+            <div>{{singleDaySumOfValue(getDayOfWeekList(i), singleDay)}}</div>
+          </div>
+          <div class="dayEvent">
+            <div>{{singleDaySumOfEvents(getDayOfWeekList(i), singleDay)}}</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-    <div class="w-100 singleDayComponent d-flex ">
+    <div class="w-100 singleDayComponent d-flex" *ngIf="uniqName === ''">
       <div class="statisticBars"></div>
       <app-statisticday class="flex-grow-1"
-      *ngIf="getDayOfWeekList(i).length > 0"
-      [objectListForDay]="getDayOfWeekList(i)"
-      [uniqNameListforDay]="getUniqDayOfWeekList(i)"/>
+                        *ngIf="getDayOfWeekList(i).length > 0"
+                        [objectListForDay]="getDayOfWeekList(i)"
+                        [uniqNameListforDay]="getUniqDayOfWeekList(i)"/>
+    </div>
+    <div class="w-100 singleDayComponent d-flex" *ngIf="uniqName > ''">
+      <div class="statisticBars"></div>
+      <app-statisticevent class="flex-grow-1"
+                          *ngIf="getDayOfWeekList(i).length > 0"
+                          [objectListForDay]="getDayOfWeekList(i)"
+                          [uniqNameListforDay]="getUniqDayOfWeekList(i)"
+                          [fullObjectList]="newObjectsList"
+                          [uniqName]="uniqName"/>
     </div>
   </div>
 

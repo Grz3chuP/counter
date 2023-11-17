@@ -8,6 +8,19 @@ export const isClicked = signal <boolean>(false)
 
 export const categoryIdStore = signal <number | undefined>(undefined)
 
+export let totalValueForAllEvents = signal <number>(0)
+
+export let totalEventsNumberForAllEvents = signal <number>(0)
+
+
+export let actualDateForThisWeekMonday = signal <any>('')
+
+type PanelInfo = {
+  id: number;
+  open: boolean;
+}
+export let currentAddPanelId = signal <PanelInfo>({id: 0, open: false})
+
 export function manageButtonClicked() {
   isClicked.set(true)
   setTimeout(() => {

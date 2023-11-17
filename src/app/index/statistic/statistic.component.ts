@@ -1,5 +1,5 @@
 import {Component, computed, OnInit} from '@angular/core';
-import {categoryIdStore, categoryList} from "../../store/data";
+import {categoryIdStore, categoryList, totalEventsNumberForAllEvents, totalValueForAllEvents} from "../../store/data";
 import {AddItemsService} from "../../service/add-items.service";
 import {reduce, switchMap} from "rxjs";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
@@ -21,6 +21,7 @@ export class StatisticComponent implements OnInit{
   uniqName: string = '';
   newObjectsList: ObjectInterface[] = [];
   newObjectNameList: ObjectInterface[] = [];
+  reset: boolean = false;
   weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   pastelColors: string[] = [
@@ -90,14 +91,21 @@ constructor(private addItemsService: AddItemsService, private mainService: MainS
     const newDateTo = new Date(this.dateTo);
     newDateTo.setHours(23, 59, 59, 59).toString();
     const formattedDateTo = newDateTo.toISOString();
+    if (formattedDateFrom > formattedDateTo) {
+      alert('Date from can not be later than date to');
+      this.loading = false;
+      return;
+    }
     this.addItemsService.getObjectsList(categoryId, formattedDateFrom, formattedDateTo)
       .pipe(
         switchMap((response: RootObjectInterface) => {
-          console.log(response);
           this.newObjectsList = response.objects;
           this.newObjectNameList = this.newObjectsList
           this.checkIfNewObjectChanged();
           this.loading = false;
+          this.uniqName = '';
+          this.totalValueOfAllEventsFunction();
+          this.totalNumberOfAllEventsFunction();
           return this.newObjectsList;
         })
       )
@@ -115,13 +123,14 @@ constructor(private addItemsService: AddItemsService, private mainService: MainS
     let uniqName: string[] = [];
      // this.uniqObjectsName = [...new Set(this.newObjectsList.map((object) => object.object_name))]
     uniqName = [...new Set(this.newObjectsList.map((object) => object.object_name))]
-    console.log(uniqName);
     this.uniqObjectsName = uniqName;
     return uniqName;
 
   };
   getEventListForDay = () => {
     this.newObjectNameList = this.newObjectsList.filter((object) => object.object_name.includes(this.uniqName));
+    this.getTotalValueForAllEventsInFullList();
+    this.getTotalEventsNumberForAllEventsInFullList();
   }
     protected readonly categoryList = categoryList;
   getDayOfWeekList(day: number) {
@@ -163,4 +172,36 @@ constructor(private addItemsService: AddItemsService, private mainService: MainS
       .length;
     return singleDaySumOfValue;
   }
+
+  changeEventName(name: string) {
+
+    this.uniqName = name;
+    this.getEventListForDay()
+  }
+  totalValueOfAllEventsFunction() {
+    const totalValueOfAllEvents = this.newObjectNameList.reduce((sum, object) => sum + object.value, 0);
+   totalValueForAllEvents.set(totalValueOfAllEvents);
+  }
+
+  protected readonly totalValueForAllEvents = totalValueForAllEvents;
+
+  private totalNumberOfAllEventsFunction() {
+    const totalNumberOfAllEvents = this.newObjectNameList.length;
+    totalEventsNumberForAllEvents.set(totalNumberOfAllEvents);
+  }
+
+  getTotalValueForAllEventsInFullList() {
+   const value = this.newObjectNameList.reduce((totalValue: number , object: ObjectInterface)=> totalValue + object.value, 0);
+   totalValueForAllEvents.set(value);
+
+
+
+  }
+  getTotalEventsNumberForAllEventsInFullList() {
+    const event =  this.newObjectNameList.length;
+    totalEventsNumberForAllEvents.set(event);
+  }
+
+
+  protected readonly totalEventsNumberForAllEvents = totalEventsNumberForAllEvents;
 }
