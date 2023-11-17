@@ -105,16 +105,14 @@
           <button type="submit"
                   class=""
 
-                  [disabled]="loading()"
-                  (click)="addObject()">Add
+                  [disabled]="loading() || !eventName"
+                  (click)="addObject()">Add {{ eventName }} {{ (eventName && eventValue) ? ' - ' + eventValue : '' }}
           </button>
           <div class="position-relative pt-3">
             <app-notyfication *ngIf="addingFinish"
                               [addingFinish]="addingFinish"
             ></app-notyfication>
           </div>
-          Adding {{eventName}} with value {{eventValue}}
-
         </form>
         <div class="optionsPanelWrapper">
           <div class="optionsPanel "
