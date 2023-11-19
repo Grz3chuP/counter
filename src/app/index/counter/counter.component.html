@@ -102,7 +102,7 @@
                  [(ngModel)]="eventValue"
                  [value]="eventValue"
                  [disabled]="loading()">
-          {{step()}}{{maxValue()}}
+          Curent steps: {{step()}} Max Value: {{maxValue()}}
           <button type="submit"
                   class=""
 
@@ -122,7 +122,7 @@
             Options
           </div>
           <app-options
-            (closeOptionEmit)="optionsOnOff()"
+            (closeOptionEmit)="optionsOnOffWithSave()"
                       (categoryIdToRemove)="removeCategoryFromList($event)"
                       *ngIf="options"
                       [categoriesList]="categories"/>

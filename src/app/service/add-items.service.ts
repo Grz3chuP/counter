@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {RootObject} from "../interfaces/CategoriesInterfaces";
 import {RootObjectInterface} from "../interfaces/ObjectsInterface";
+import {RootOptionsInterface} from "../interfaces/OptionsInterface";
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,14 @@ return this.http.post(`${environment.server_url}/api/create/item`,  data, { head
     return this.http.get<RootObject>(`${environment.server_url}/api/get/categories`, {withCredentials: true });
   }
 
+  getOptions(): Observable<RootOptionsInterface> {
+    return this.http.get<RootOptionsInterface>(`${environment.server_url}/api/get/options`, {withCredentials: true });
+  }
 
-
+  saveOptions(step: number, maxValue: number) {
+     const data = { step_value: step, max_value: maxValue };
+    return this.http.post(`${environment.server_url}/api/save/options`, data, { headers: this.getHeader(), withCredentials: true });
+  }
   getObjectsList(categoryId: number, weekStart: any, weekEnd: any): Observable<RootObjectInterface> {
     // Przekazuje początek i koniec tygodnia jako parametry w zapytaniu.
     console.log(weekStart + ' ' + weekEnd + ' ' + categoryId);
@@ -44,6 +51,7 @@ return this.http.post(`${environment.server_url}/api/create/item`,  data, { head
       withCredentials: true
     });
   }
+
 
 
   private getHeader() {

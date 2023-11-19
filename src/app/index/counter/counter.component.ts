@@ -8,6 +8,7 @@ import {DateTime} from "luxon";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
 import {trigger, state, style, animate, transition} from "@angular/animations";
 import {maxValue, step} from "../../store/options";
+import {OptionsInterface, RootOptionsInterface} from "../../interfaces/OptionsInterface";
 
 
 @Component({
@@ -39,7 +40,7 @@ export class CounterComponent implements OnInit{
   addingFinish: boolean = false;
   uniqueEventsName: string[] = [];
   options: boolean = false;
-
+  optionsList: OptionsInterface | undefined;
   constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
 
@@ -47,7 +48,7 @@ export class CounterComponent implements OnInit{
 
   ngOnInit(): void {
     this.getCategoryList();
-
+    this.getOptions();
 
   }
 
@@ -113,11 +114,9 @@ export class CounterComponent implements OnInit{
     this.addItemsService.getCategoryList()
       .subscribe({
         next: (response: RootObject) => {
-          console.log(response);
           this.categories = response.categories;
           this.categoryId = this.categories[this.getLastAddedCategory()!].id;
           categoryIdStore.set(this.categoryId);
-          console.log('tutaj'  +this.categoryId);
           categoryList.set(this.categories);
           if(this.categories.length === 0) {
             return;
@@ -140,7 +139,7 @@ export class CounterComponent implements OnInit{
   private getCategoryListAndContinue() {
     return this.addItemsService.getCategoryList().pipe(
       tap((response: RootObject) => {
-        console.log(response);
+
         this.categories = response.categories;
 
       }),
@@ -181,7 +180,7 @@ export class CounterComponent implements OnInit{
     this.addItemsService.getObjectsList(this.categoryId, this.getLast2Weeks(), DateTime.now())
       .pipe(
         switchMap((response: RootObjectInterface) => {
-          console.log(response);
+
           this.newObjectsList = response.objects;
           this.getUniqueEventsName();
           loading.set(false);
@@ -200,7 +199,7 @@ export class CounterComponent implements OnInit{
   }
   getUniqueEventsName() {
     this.uniqueEventsName =  [...new Set(this.newObjectsList.map((object) => object.object_name))];
-    console.log(this.uniqueEventsName);
+
   }
 
   getLast2Weeks() {
@@ -241,7 +240,49 @@ export class CounterComponent implements OnInit{
     }
     this.eventValue += number;
   }
+  // //////////////////////////
+  // load otions From DataBase
+  // ////////////////////////////
+  private getOptions() {
+    this.addItemsService.getOptions()
+      .subscribe({
+        next: (response: RootOptionsInterface) => {
+          console.log('tutaj musze widziec' + response.options);
+          this.optionsList = response.options;
+          step.set(this.optionsList.step_value);
+          maxValue.set(this.optionsList.max_value);
 
+        },
+        error: error => {
+          console.log(error);
+          if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return; //specjalnie zmieszczone w 1 linijce żeby nie było widać bardzo
+          alert('Błąd pobierania opcji\n' + error.error.message);
+        }
+      });
+
+  }
+  saveOptions() {
+    loading.set(true);
+    this.addItemsService.saveOptions(step(), maxValue())
+       .subscribe({
+        next: (response: any) => {
+          console.log(response);
+          loading.set(false);
+          alert('Options saved');
+        },
+        error: (error: any) => {
+          if (this.mainService.checkIfUnauthenticatedAndRedirectIfSo(error)) return;
+          loading.set(false);
+          console.log(error);
+        }
+      });
+  }
+  optionsOnOffWithSave() {
+   this.optionsOnOff();
+    this.saveOptions();
+  }
   protected readonly step = step;
   protected readonly maxValue = maxValue;
+
+
 }
