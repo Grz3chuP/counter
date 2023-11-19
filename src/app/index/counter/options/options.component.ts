@@ -53,9 +53,12 @@ export class OptionsComponent {
   changeStep() {
     step.set(this.stepValue);
   }
+  changeMaxValue() {
+    maxValue.set(this.maxValueOption);
+  }
 
   saveOptions() {
-    manageButtonClicked();
+
     this.closeOptionEmit.emit(true);
   }
   protected readonly loading = loading;

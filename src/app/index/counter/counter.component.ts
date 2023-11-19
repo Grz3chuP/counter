@@ -7,7 +7,7 @@ import {MainService} from "../../main.service";
 import {DateTime} from "luxon";
 import {ObjectInterface, RootObjectInterface} from "../../interfaces/ObjectsInterface";
 import {trigger, state, style, animate, transition} from "@angular/animations";
-import {step} from "../../store/options";
+import {maxValue, step} from "../../store/options";
 
 
 @Component({
@@ -243,4 +243,5 @@ export class CounterComponent implements OnInit{
   }
 
   protected readonly step = step;
+  protected readonly maxValue = maxValue;
 }

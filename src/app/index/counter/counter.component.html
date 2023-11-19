@@ -96,12 +96,13 @@
                  id="itemValue"
                  name="itemValue"
                  min="0"
-                 max="100"
+                 [max]="maxValue()"
                  [step]="step()"
                  class="customRange"
                  [(ngModel)]="eventValue"
                  [value]="eventValue"
                  [disabled]="loading()">
+          {{step()}}{{maxValue()}}
           <button type="submit"
                   class=""
 
