@@ -6,6 +6,7 @@
   width: 100%;
   border-top: var(--borderColorMain) solid 1px;
   margin-top: 5px;
+
 }
 .optionSection {
   display: flex;
@@ -16,4 +17,6 @@
   font-size: 0.9rem;
   max-height: 50px;
   border-bottom: var(--borderColorMain) solid 1px;
+  padding: 3px 0;
+
 }

@@ -97,7 +97,7 @@
                  name="itemValue"
                  min="0"
                  max="100"
-                 step="1"
+                 [step]="step()"
                  class="customRange"
                  [(ngModel)]="eventValue"
                  [value]="eventValue"
@@ -121,6 +121,7 @@
             Options
           </div>
           <app-options
+            (closeOptionEmit)="optionsOnOff()"
                       (categoryIdToRemove)="removeCategoryFromList($event)"
                       *ngIf="options"
                       [categoriesList]="categories"/>

@@ -1,4 +1,5 @@
 <div class="optionsWrapper">
+<!--  Delete Category-->
   <div class="optionSection">
     <div>
       Delete Category
@@ -15,6 +16,43 @@
             [disabled]="loading()"
     >
       Delete
+    </button>
+  </div>
+<!--  change steps-->
+  <div class="optionSection">
+    <div>
+      Change Steps
+    </div>
+    <input type="range"
+           [(ngModel)]="stepValue"
+           min="1"
+           max="10"
+           step="1"
+           (change)="changeStep()">
+    {{stepValue}}
+  </div>
+  <!--  change max value-->
+  <div class="optionSection">
+    <div>
+      Change Steps
+    </div>
+    <input type="text"
+           [(ngModel)]="maxValueOption"
+            min="1"
+>
+    {{maxValueOption}}
+  </div>
+<!--  save button-->
+  <div class="optionSection">
+    <div>
+
+    </div>
+
+    <button class="customButtonGrey"
+            (click)="saveOptions()"
+            [disabled]="loading()"
+    >
+      Save
     </button>
   </div>
 </div>
