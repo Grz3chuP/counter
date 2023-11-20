@@ -39,7 +39,7 @@
 }
 .addingFinished {
   position: absolute;
-  top: 0 ;
+  top: -5px ;
   left: 0;
   opacity: 0;
   color: darkolivegreen;
