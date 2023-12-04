@@ -6,7 +6,7 @@ export const categoryList = signal <Category[]>([])
 
 export const isClicked = signal <boolean>(false)
 
-export const categoryIdStore = signal <number | undefined>(undefined)
+export const categoryIdStore = signal <number | undefined | null>(undefined)
 
 export let totalValueForAllEvents = signal <number>(0)
 

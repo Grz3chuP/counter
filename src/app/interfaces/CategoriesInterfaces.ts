@@ -7,4 +7,5 @@ export interface Category {
 }
 export interface RootObject {
   categories: Category[];
+  last_used_category_id?: number | null;
 }

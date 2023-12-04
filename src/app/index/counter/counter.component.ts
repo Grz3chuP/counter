@@ -34,7 +34,7 @@ export class CounterComponent implements OnInit{
   eventValue: number = 0;
   newCategory: string = '';
   eventName: string = '';
-  categoryId: number | undefined;
+  categoryId: number | undefined | null;
   notyfication: boolean = false;
   loadingFinish: boolean = false;
   addingFinish: boolean = false;
@@ -119,7 +119,8 @@ export class CounterComponent implements OnInit{
       .subscribe({
         next: (response: RootObject) => {
           this.categories = response.categories;
-          this.categoryId = this.categories[this.getLastAddedCategory()!].id;
+          // this.categoryId = this.categories[this.getLastAddedCategory()!].id;
+          this.categoryId = response.last_used_category_id;
           categoryIdStore.set(this.categoryId);
           categoryList.set(this.categories);
           if(this.categories.length === 0) {

@@ -40,7 +40,7 @@ return this.http.post(`${environment.server_url}/api/create/item`,  data, { head
      const data = { step_value: step, max_value: maxValue };
     return this.http.post(`${environment.server_url}/api/save/options`, data, { headers: this.getHeader(), withCredentials: true });
   }
-  getObjectsList(categoryId: number, weekStart: any, weekEnd: any): Observable<RootObjectInterface> {
+  getObjectsList(categoryId: number | null, weekStart: any, weekEnd: any): Observable<RootObjectInterface> {
     // Przekazuje początek i koniec tygodnia jako parametry w zapytaniu.
     console.log(weekStart + ' ' + weekEnd + ' ' + categoryId);
     return this.http.get<RootObjectInterface>(`${environment.server_url}/api/get/object/${categoryId}`, {
