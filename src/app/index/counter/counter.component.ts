@@ -41,6 +41,10 @@ export class CounterComponent implements OnInit{
   uniqueEventsName: string[] = [];
   options: boolean = false;
   optionsList: OptionsInterface | undefined;
+
+  protected readonly step = step;
+  protected readonly maxValue = maxValue;
+
   constructor(private addItemsService: AddItemsService, private mainService: MainService) {
 
 
@@ -281,8 +285,7 @@ export class CounterComponent implements OnInit{
    this.optionsOnOff();
     this.saveOptions();
   }
-  protected readonly step = step;
-  protected readonly maxValue = maxValue;
+
 
 
 }
